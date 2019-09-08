@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[블록체인]임베디드 기반 블록체인 출입 관리 시스템"
-date:   2019-03-02
+date:   2019-09-08
 excerpt: "[블록체인]임베디드 기반 블록체인 출입 관리 시스템"
 project: true
 tag:
