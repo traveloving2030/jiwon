@@ -9,10 +9,10 @@ background:         'assets/img/placeholder-big.jpg'
 #'assets/img/desktop-white-bg.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_US
-url               :  https://traveloving2030.github.io
+url               :  https://traveloving2030.github.io/jiwon
 plugins:
   - jekyll-sitemap
-repository        : "traveloving2030/traveloving2030.github.io"
+repository        : "traveloving2030/jiwon"
 
 
 
@@ -32,7 +32,7 @@ sass:
   style:            compressed
 
 # Comments
-disqus_shortname:   https-traveloving2030-github-io
+disqus_shortname:   https-traveloving2030-github-io-jiwon
 
 # Social
 # if you don't have any of social below, comment the line.
