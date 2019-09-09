@@ -5,7 +5,7 @@ date: 2019-09-09
 excerpt: "서브넷 마스크 개념 정리"
 tag:
 - network
-category: [NetWrok]
+category: [NetWork]
 comments: true
 ---
 
