@@ -16,6 +16,7 @@ comments: false
 * 한국항공대학교 Embeded System Research 석사 과정 중
 * 정부지원 블록체인 인력양성 Hyperledger Fabric BlockChain, Etherum 기반 Public BlockChain 강사 활동 
  -> NIPA(정보통신산업진흥원), KITRI(한국정보기술연구원), 한경Academy...
+* NCS 교재 집필 연구원
 
 ## 주요 능력
 * Private BlockChain (Hyperledger Fabric) 개발
