@@ -54,7 +54,7 @@ comments: false
 
 ### 1. 파일 클론합니다.
 ```
-git clone https://github.com/Kyounghwan01/Hyperledger-building-security-app.git
+git clone https://github.com/traveloving2030/safety_check_hyperledger_composer.git
 ```
 ### 2. DB에 있는 app.js파일을 실행합니다.
 ```
