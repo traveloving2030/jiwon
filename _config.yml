@@ -32,7 +32,8 @@ sass:
   style:            compressed
 
 # Comments
-disqus_shortname:   https-traveloving2030-github-io-jiwon
+disqus_url: https://jiwon-disqus-com.disqus.com
+disqus_shortname: jiwon
 
 # Social
 # if you don't have any of social below, comment the line.
