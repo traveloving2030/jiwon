@@ -1,12 +1,15 @@
 ---
 layout: page
 title: About the Theme
-tags: [about, Jekyll, theme, moon]
+tags: [BlockChain]
 date: 2016-03-21
 comments: false
 ---
     
 <center><a href="https://github.com/traveloving2030"><b>Jeong JiWon</b></a> is master researcher at Korea AeroSpace University</center>
+
+## Contact
+* Email : traveloving2030@gmail.com
 
 ## 이력
 * 한국항공대학교 전자공학과 학사 졸업(2020.02)
