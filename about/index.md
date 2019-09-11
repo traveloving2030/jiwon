@@ -14,8 +14,7 @@ comments: false
 ## 이력
 * 한국항공대학교 전자공학과 학사 졸업(2020.02)
 * 한국항공대학교 Embeded System Research 석사 과정 중
-* 과학기술정보통신부 블록체인 기반의 산업 적용 비즈니스 모델 개발자 양성과정 최우수 수료생 선정 (2018_09_03 ~ 2019_02_28)
-* 정부지원 블록체인 인력양성 Hyperledger Fabric BlockChain 강사로 활동 
+* 정부지원 블록체인 인력양성 Hyperledger Fabric BlockChain, Etherum 기반 Public BlockChain 강사 활동 
  -> NIPA(정보통신산업진흥원), KITRI(한국정보기술연구원), 한경Academy...
 
 ## 주요 능력
