@@ -5,7 +5,7 @@ description:        "Welcome to Block Chain World"
 reading_time:       true
 words_per_minute:   200
 logo:               'assets/img/post/profile.jpg'
-background:         https://drive.google.com/file/d/1M9NcPzOLwfGuZo7Oxc8I4MOjcWMzrH85/view?usp=sharing
+background:         'assets/img/placeholder-big.jpg'
 #'assets/img/desktop-white-bg.jpg'
 tiled_bg:           false   # Set this true if you want to tile your background image, otherwise it will be covered
 locale:             en_US
