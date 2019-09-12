@@ -10,6 +10,7 @@ comments: true
 
 ## Contact
 * Email : traveloving2030@gmail.com
+* 궁금하신 사항은 메일 또는 게시글에 댓글을 남겨주세요
 
 ## 이력
 * 한국항공대학교 전자공학과 학사 졸업(2020.02)
