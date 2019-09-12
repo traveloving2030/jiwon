@@ -3,7 +3,7 @@ layout: page
 title: Who Am I?
 tags: [BlockChain]
 date: 2016-03-21
-comments: false
+comments: true
 ---
     
 <center><a href="https://github.com/traveloving2030"><b>Jeong JiWon</b></a> is master researcher at Korea AeroSpace University</center>
