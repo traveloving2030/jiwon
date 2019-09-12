@@ -10,7 +10,7 @@ tag:
 - node.js
 - mongodb
 - react-native
-comments: false
+comments: true
 ---
 
 
