@@ -47,8 +47,10 @@ layout: compress
     <!-- MathJax -->
     <script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     {% endif %}
+    {% if site.disqus_shortname %}
     <script id="dsq-count-scr" src="//jiwon-1.disqus.com/count.js" async></script>
-    {% if site.disqus_shortname %}{% include disqus_comments.html %}{% endif %}
+    {% include disqus_comments.html %}
+    {% endif %}
 </body>
 
 </html>
