@@ -18,6 +18,7 @@ comments: true
 * Public, Private 블록체인 강사 
  -> NIPA(정보통신산업진흥원), KITRI(한국정보기술연구원), 한경Academy...
 * NCS 교재 집필 연구원
+* 과학기술정보통신부 블록체인 전문가 양성과정 수료
 
 ## 주요 능력
 * Private BlockChain (Hyperledger Fabric) 개발
