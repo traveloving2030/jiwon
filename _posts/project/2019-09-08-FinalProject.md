@@ -8,7 +8,7 @@ tag:
 - blockchain
 - hyperledger
 - node.js
-comments: false
+comments: true
 ---
 
 
