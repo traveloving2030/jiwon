@@ -66,22 +66,6 @@ comments: true
 - <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드52.JPG" width = "70%" /> 
 - <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드53.JPG" width = "70%" /> 
 - <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드54.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드55.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드56.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드57.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드58.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드59.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드60.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드61.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드62.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드63.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드64.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드65.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드66.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드67.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드68.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드69.JPG" width = "70%" /> 
-- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드70.JPG" width = "70%" /> 
 
 
 
