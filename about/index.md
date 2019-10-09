@@ -29,7 +29,6 @@ comments: true
 ## 수상
 * 과학기술정보통신부 블록체인 기반 산업적용 비즈니스 모델 개발(19_02_28 최우수)
 * 강원 창조경제혁신센터 공유경제 해커톤 대상(19_02_15)
-* 한국항공대 블록체인, AI 분야 해커톤 대상(19_10_15)
 
 
 <img width="300" src = "https://traveloving2030.github.io/jiwon/assets/img/post/블록체인상장.jpg"/> <br>
