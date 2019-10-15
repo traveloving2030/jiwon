@@ -67,6 +67,8 @@ comments: true
 - <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드52.JPG" width = "70%" /> 
 - <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드53.JPG" width = "70%" /> 
 - <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드54.JPG" width = "70%" /> 
+- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드55.JPG" width = "70%" /> 
+- <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/Hyperledger_concept/슬라이드56.JPG" width = "70%" /> 
 
 
 
