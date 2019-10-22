@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hyperledger Concept"
+title: "1. Hyperledger Concept"
 date: 2019-09-15
 excerpt: "Hyperledger Fabric 개념"
 tag:

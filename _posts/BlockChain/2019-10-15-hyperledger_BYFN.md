@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hyperledger Fabric Build Your First Network"
+title: "4. Hyperledger Fabric Build Your First Network"
 date: 2019-10-15
 excerpt: "Build Your First Network 실습"
 tag:

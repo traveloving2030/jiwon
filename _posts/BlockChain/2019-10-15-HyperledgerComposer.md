@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hyperledger Composer tutorial"
+title: "2. Hyperledger Composer tutorial"
 date: 2019-10-15
 excerpt: "Hyperledger Composer 실습"
 tag:

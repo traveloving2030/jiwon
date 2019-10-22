@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Hyperledger Fabric Add Peer"
+title: "5. Hyperledger Fabric Add Peer"
 date: 2019-10-15
 excerpt: "Writing Your Add Peer 실습"
 tag:
