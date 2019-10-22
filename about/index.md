@@ -22,7 +22,7 @@ comments: true
 
 ## 주요 능력
 * Private BlockChain (Hyperledger Fabric) 개발
-* Java Web Programming
+* Web Programming(JSP,MySQL,Servlet)
 * NodeJS 서버구축
 * JavaScript Application 개발(FrontEnd)
 
