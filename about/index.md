@@ -34,4 +34,6 @@ comments: true
 
 <img width="300" src = "https://traveloving2030.github.io/jiwon/assets/img/post/블록체인상장.jpg"/> <br>
 
- <img width="300" alt="대상" src="https://user-images.githubusercontent.com/44187477/56814080-518c6e00-6879-11e9-85a3-32901c1f964f.png">
+ <img width="300" alt="대상" src="https://user-images.githubusercontent.com/44187477/56814080-518c6e00-6879-11e9-85a3-32901c1f964f.png"> <br>
+
+<img width="300" src = "https://traveloving2030.github.io/jiwon/assets/img/post/교내블록체인.jpg"/>
