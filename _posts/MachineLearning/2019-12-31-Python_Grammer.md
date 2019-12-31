@@ -14,7 +14,7 @@ comments: true
 
 ## 넘파이(Numpy) : 파이썬의 확장 모듀르 간단한 코드로 데이터를 효율적ㅇ로 처리할 수 있다. 다차원 배열을 충실하게 지원
 
-import numpy as np
+a = "Python syntax highlighting"
 a=np.array([0,1,2,3,4,5])
 print(a)
 
