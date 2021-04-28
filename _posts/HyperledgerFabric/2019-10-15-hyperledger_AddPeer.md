@@ -6,7 +6,7 @@ excerpt: "Writing Your Add Peer 실습"
 tag:
 - BlockChain
 - Hyperledger Fabric
-category: [BlockChain]
+category: [HyperledgerFabric]
 comments: true
 
 ---

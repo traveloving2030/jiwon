@@ -6,7 +6,7 @@ excerpt: "Hyperledger Fabric의 한계"
 tag:
 - BlockChain
 - Hyperledger Fabric
-category: [BlockChain]
+category: [HyperledgerFabric]
 comments: true
 
 ---

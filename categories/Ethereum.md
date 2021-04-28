@@ -1,5 +1,5 @@
 ---
 layout: category
-title: BlockChain
+title: Ethereum
 
 ---

@@ -6,7 +6,7 @@ excerpt: "Build Your First Network 실습"
 tag:
 - BlockChain
 - Hyperledger Fabric
-category: [BlockChain]
+category: [HyperledgerFabric]
 comments: true
 
 ---

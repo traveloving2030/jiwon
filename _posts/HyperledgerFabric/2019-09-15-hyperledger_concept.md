@@ -6,7 +6,7 @@ excerpt: "Hyperledger Fabric 개념"
 tag:
 - BlockChain
 - Hyperledger Fabric
-category: [BlockChain]
+category: [HyperledgerFabric]
 comments: true
 
 ---
