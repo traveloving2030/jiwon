@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "WebAPI"
-date: 2021-04-27
+date: 2021-04-28
 excerpt: "web"
 tag:
 - WebProgramming
@@ -165,6 +165,7 @@ function findNum(d){
 findNum(data);
 
 console.log(" result : " + result);
+`
 ```
 
 
