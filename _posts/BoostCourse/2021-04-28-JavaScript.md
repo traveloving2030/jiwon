@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "WebAPI"
+title: "자바스크립트 배열&객체"
 date: 2021-04-28
 excerpt: "web"
 tag:
