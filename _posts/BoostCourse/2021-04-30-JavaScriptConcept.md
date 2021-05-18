@@ -153,3 +153,4 @@ async
 ```
 - <h2 style="color:red;">여기서 중요한것은 await을 붙일 수 있는 것은 Promise 함수 뿐만 아니라 일반함수여도 됨!</h2>
  
+<img src = "https://traveloving2030.github.io/jiwon/assets/img/post/부스트코스/34.png" height="280" width="300" />
