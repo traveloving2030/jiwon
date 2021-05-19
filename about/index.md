@@ -5,7 +5,8 @@ tags: [BlockChain]
 date: 2016-03-21
 comments: true
 ---
-    
+
+<img src = "https://traveloving2030.github.io/jiwon/assets/img/post/증명사진.jpg" width = "30%"  height="30%" />
 <center><a href="https://github.com/traveloving2030"><b>Jeong JiWon</b></a> is master researcher at Korea AeroSpace University</center>
 
 ## Contact
