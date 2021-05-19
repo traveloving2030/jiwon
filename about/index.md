@@ -22,11 +22,15 @@ comments: true
 
 ## 주요 능력
 * Private BlockChain (Hyperledger Fabric) 개발
+* Public BlockChain (Ethereum) 개발
 * 웹 프론트앤드 개발(HTML, CSS, JavaScript)
 * 웹 백앤드 개발(MySQL, Java, JSP, Spring)
-* Web Programming(JSP,MySQL,Servlet)
+* 인공지능 모델링 및 개발(LSTM, Time-GAN))
 * NodeJS 프로그래밍
 * ReactJS, AngulajrJS 프로그래밍
+
+## 논문
+* 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장 연구 (Time-GAN Data Integrity Assurance Using Hyperledger Fabric Blockchain)
 
 
 ## 수상
