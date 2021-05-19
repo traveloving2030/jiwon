@@ -14,16 +14,20 @@ comments: true
 
 ## 이력
 * 한국항공대학교 전자공학과 학사 졸업(2020.02)
-* 한국항공대학교 Embeded System Research 석사 과정 중
+* 한국항공대학교 AI 블록체인 융합 연구실 석사 과정 중
 * Public, Private 블록체인 강사 
  -> NIPA(정보통신산업진흥원), KITRI(한국정보기술연구원)
+* 네이버 BoostCourse 수료
 * 과학기술정보통신부 블록체인 전문가 양성과정 수료
 
 ## 주요 능력
 * Private BlockChain (Hyperledger Fabric) 개발
+* 웹 프론트앤드 개발(HTML, CSS, JavaScript)
+* 웹 백앤드 개발(MySQL, Java, JSP, Spring)
 * Web Programming(JSP,MySQL,Servlet)
-* NodeJS 서버구축
-* JavaScript Application 개발(FrontEnd)
+* NodeJS 프로그래밍
+* ReactJS, AngulajrJS 프로그래밍
+
 
 ## 수상
 * 과학기술정보통신부 블록체인 기반 산업적용 비즈니스 모델 개발(19_02_28 최우수)
