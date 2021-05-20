@@ -33,6 +33,8 @@ comments: true
 ## 논문
 * 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장 연구 (Time-GAN Data Integrity Assurance Using Hyperledger Fabric Blockchain)
 
+## 자격증
+* 정보처리기사
 
 ## 수상
 * 과학기술정보통신부 블록체인 기반 산업적용 비즈니스 모델 개발(19_02_28 최우수)
