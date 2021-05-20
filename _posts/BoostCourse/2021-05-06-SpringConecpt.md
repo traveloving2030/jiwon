@@ -40,11 +40,13 @@ comments: true
 - 스프링 프레임워크는 약 20개의 모듈로 구성되어 있습니다.
 - 필요한 모듈만 가져다 사용할 수 있습니다.
 
+
 ## AOP와 인스트루멘테이션
 
 - spring-AOP : AOP 얼라이언스(Alliance)와 호환되는 방법으로 AOP를 지원합니다.
 - spring-aspects : AspectJ와의 통합을 제공합니다.
 - spring-instrument : 인스트루멘테이션을 지원하는 클래스와 특정 WAS에서 사용하는 클래스로 더 구현체를 제공합니다. 참고로 BCI(Byte Code Instrumentations)은 런타임이나 로드(Load) 때 클래스의 바이트 코드에 변경을 가하는 방법을 말합니다.
+
 
 ## 메시징(Messaging)
 
