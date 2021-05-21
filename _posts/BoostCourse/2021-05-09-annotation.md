@@ -43,6 +43,8 @@ public class ApplicatoinConfig {
 - 그리고 파라미터의 생성된 객체들과 같은 타입의 객체가 있을 경우 파라미터로 전달해서 객체를 생성함
 - 이렇게 전달받은 파라미터를 car의 setEngine 메소드의 파라미터로 설정한 후 return함
 - Annotation을 사용하면 이 부분을 더 간단하게 만들 수 있음
+- 단, Spring JDBC와 같은 외부라이브러리가 가진 객체를 사용할 경우 라이브러리를 열어서 어노테이션을 붙일 순 없음. 따라서 위와 같이 Bean을 등록하는 방법을 써야 함!
+
 
 
 - ApplicationContextExam04.java
