@@ -153,3 +153,73 @@ this.jdbcTemplate.update("update t_actor set = ? where id = ?",  "Banjo", 5276L)
 ```java
 this.jdbcTemplate.update("delete from actor where id = ?", Long.valueOf(actorId));
 ```
+
+
+# DTO (Data Transfer Object)
+
+- 하나의 가방처럼 만들어 데이터를 한꺼번에 들고다닌다
+- 계층간 데이터 교환을 위한 자바빈즈
+- 여기서의 계층이란 컨트롤러 뷰, 비지니스 계층, 퍼시스턴스 계층을 의미
+- 일반적으로 DTO는 로직을 가지고 있지 않고, 순수한 데이터 객체
+- 필드와 getter, setter를 가진다. 추가적으로 toString(), equals(), hashCode()등의 Object 메소드를 오버라이딩 가능
+
+ ```java
+public class ActorDTO {
+    private Long id;
+    private String firstName;
+    private String lastName;
+    public String getFirstName() {
+        return this.firstName;
+    }
+    public String getLastName() {
+        return this.lastName;
+    }
+    public Long getId() {
+        return this.id;
+    }
+    // ......
+}
+ ```
+
+# DAO(Data Access Object)
+
+- DAO란 Data Access Object의 약자로 데이터를 조회하거나 조작하는 기능을 전담하도록 만든 객체
+- 보통 데이터베이스를 조작하는 기능을 전담하는 목적으로 만들어짐
+
+
+# Connection Pool
+
+- DB연결은 비용이 많이 듬
+- 커넥션 풀은 미리 커넥션을 여러 개 맺어 둠
+- 커넥션이 필요하면 커넥션 풀에게 빌려서 사용한 후 반납
+- 커넥션을 반납하지 않으면 어떻게 될까?
+    - Connection을 사용하면 되도록 빨리 반납해야함. 그렇지 않으면 Connection Pool에서 사용가능한 Connection이 없어 프로그램이 늦어지거나 장애를 일으킴
+
+<img src = "https://traveloving2030.github.io/jiwon/assets/img/post/부스트코스/41.jpg" height="280" width="300" />
+
+- Client1, 2가 Connection Pool로부터 Connection 객체를 얻어 사용
+- Client3이 다시 Connection을 얻어 사용
+- Client1이 Connection을 close하면 사용한 Connection이 Connection Pool로 반납됨
+
+
+# Data Source
+
+- DataSource는 커넥션 풀을 관리하는 목적으로 사용되는 객체
+- DataSource를 이용해 커넥션을 얻어오고 반납하는 등의 작업을 수행
+
+
+# Spring JDBC를 이용한 DAO 작성 실습
+
+<img src = "https://traveloving2030.github.io/jiwon/assets/img/post/부스트코스/40.png" height="280" width="300" />
+
+- Spring Container인 ApplicationContext는 ApplicationConfig Class 설정파일을 읽어들임
+- ApplicationConfig에는 @ComponentScan 어노테이션이 DAO Class를 찾도록 설정할것
+- 찾은 모든 DAO 클래스는 Spring Container(ApplicationContext)가 관리하게 됨
+- ApplicationContext는 DBConfigClass를 Import함
+- DBConfig Class에서는 dataSource와 Tx Manager 객체를 생성
+- DAO는 Field로 NamedParameterJDBCTemplate 과 SimpleJDBCInsert를 가지게됨. 두 개의 객체는 Data Source를 필요로 함
+    - 두개의 객체 모두 SQL의 실행을 편리하게 하도록 Spring JDBC에서 제공하는 객체
+    - 두개의 객체는 RoleDao 생성자에서 초기화하고 RoleDAO의 메소드를 구현
+- SpringJDBC를 사용하는 사용자는 파라미터와 SQL을 가장 많이신경써야함
+- SQL은 RoleDAOSqls에 상수로 정의를 해놓음으로서 나중에 SQL이 변경될 경우 좀 더 편하게 수정될수 있도록함
+- 한건의 Role 정보를 저장하고 전달하기 위한 목적으로 RoleDTO가 사용되고 있음
