@@ -199,3 +199,102 @@ public class ApplicationContextExam01 {
 
 2. xml파일에 bean태그를 입력할 때, scope속성을 줄 수 있습니다. 강의에서와 같이 아무런 scope속성을 명시하지안을경우, singleton타입으로 지정됩니다. 
    이때, scope속성을 prototype으로 지정하게될경우, getBean메소드를 통해, 해당객체를 요청할 때마다 새로운객체를 생성, 반환하게됩니다. 따라서, 1번의 문제를 해결할 수 있습니다. 
+
+
+- kr.or.connect.diexam 패키지 내 Engine.java 클래스 파일 생성
+
+```java
+package kr.or.connect.diexam;
+
+public class Engine {
+	public Engine() {
+		System.out.println("Engine 생성자");
+	}
+	
+	public void exec() {
+		System.out.println("엔진이 동작합니다.");
+	}
+}
+```
+
+# 자동차로 실습해보기
+
+- kr.or.connect.diexam 패키지 내 Car.java 클래스 파일 생성
+
+```java
+package kr.or.connect.diexam;
+
+public class Car {
+	Engine v8;
+	
+	public Car() {
+		System.out.println("Car 생성자");
+	}
+	
+	public void setEngine(Engine e) {
+		this.v8 = e;
+	}
+	
+	public void run() {
+		System.out.println("엔진을 이용하여 달립니다.");
+		v8.exec();
+	}
+	
+	public static void main(String[] args) {
+		Engine e = new Engine();
+		Car c = new Car();
+		c.setEngine(e);
+		c.run();
+	}
+}
+```
+
+- 여기서 main 메소드 내에 있는 객체 생성부분을 우리(개발자)가 직접하는게 아니라 `IoC`, 즉 `제어의 역전으로 넘기고 싶다` => `Spring IoC 컨테이너가 만들어 줄것임!`
+- 그럴려면 .xml 설정파일에 해당 Beans를 등록해야함!
+- resources 폴더내 applicationContext.xml 파일에 bean 등록
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="userBean" class="kr.or.connect.diexam.UserBean"></bean>
+	<bean id="e" class="kr.or.connect.diexam.Engine"></bean>
+	<bean id="c" class="kr.or.connect.diexam.Car"></bean>
+</beans>
+```
+- 그냥 이렇게 bean만 정의해주면 Engine과 Car의 instance가 싱글톤으로 생성됨
+- 위 코드에서는 `Car에다가 Engine을 Set해라 라는 의미는 없음`
+- set하기 위해서는 Bean에 Property 생성해야함 (아래 코드 추가)
+
+```xml
+	<bean id="userBean" class="kr.or.connect.diexam.UserBean"></bean>
+	<bean id="e" class="kr.or.connect.diexam.Engine"></bean>
+	<bean id="c" class="kr.or.connect.diexam.Car">
+		<property name="engine" ref="e"></property>
+	</bean>
+```
+- 이때, `<property name="engine" ref="e"></property>` 이 부분이 public void setEngine(Engine e) 와 같은 효과를 지님
+- setEngine 메소드는 파라미터로 engine 타입을 받음. 해당 부분을 ref에 id가 e로 선언된 인스턴스를 파라미터로 전달해달라는 의미
+
+- 이제 kr.or.connect.diexam 패키지 내 `설정된 xml파일을 읽어들여서 실행`하는 ApplicationContextExam02.java 파일 생성 
+
+```java
+package kr.or.connect.diexam;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ApplicationContextExam02 {
+	public static void main(String[] args) {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		Car car = (Car) ac.getBean("c");
+		car.run();
+	}
+}
+```
+- 자동차를 생성하는 주체가 내가 아닌 Spring Container가 됨!
+- Car 클래스만 등장 => Engine Class는 실행Class에서 등장하지 않음 (`어떤 객체에게 객체를 주입하는것 : DI`)
+- 사용자는 사용할 Car 클래스만 알고있으면됨!
+- 나중에 Car를 상속받고있는 Bus 클래스가 생성되도록 xml 파일만 바꿔주고 Bus가 상속받고 있는 Engine Class도 Electric Engine으로 주입받도록 바꿔주면 실행클래스의 코드는 하나도 바뀌지 않고 전기버스가 동작하는 코드가 될 수 있음!
