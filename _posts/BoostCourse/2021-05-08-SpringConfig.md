@@ -298,3 +298,117 @@ public class ApplicationContextExam02 {
 - Car 클래스만 등장 => Engine Class는 실행Class에서 등장하지 않음 (`어떤 객체에게 객체를 주입하는것 : DI`)
 - 사용자는 사용할 Car 클래스만 알고있으면됨!
 - 나중에 Car를 상속받고있는 Bus 클래스가 생성되도록 xml 파일만 바꿔주고 Bus가 상속받고 있는 Engine Class도 Electric Engine으로 주입받도록 바꿔주면 실행클래스의 코드는 하나도 바뀌지 않고 전기버스가 동작하는 코드가 될 수 있음!
+
+
+# 버스 추가실습
+
+- Engine.java
+
+```java
+package kr.or.connect.diexam;
+
+public class Engine {
+	public Engine() {
+		System.out.println("Engine 생성자");
+	}
+	
+	public void exec() {
+		System.out.println("엔진이 동작합니다.");
+	}
+	
+	public void execElec() {
+		System.out.println("전기 엔진이 동작합니다.");
+	}
+}
+```
+
+- Car.java
+
+```java
+package kr.or.connect.diexam;
+
+public class Car {
+	Engine v8;
+	
+	public Car() {
+		System.out.println("Car 생성자");
+	}
+	
+	public void setEngine(Engine e) {
+		this.v8 = e;
+	}
+	
+	public void run() {
+		System.out.println("엔진을 이용하여 달립니다.");
+		v8.exec();
+	}
+	
+	public void runElec() {
+		System.out.println("전기 엔진을 이용하여 달립니다.");
+		v8.execElec();
+	}
+
+}
+```
+
+- Bus.java
+
+```java
+package kr.or.connect.diexam;
+
+public class Bus {
+	Car c;
+	
+	public Bus() {
+		System.out.println("Bus 생성자");
+	}
+	
+	public void setCar(Car c) {
+		this.c = c;
+	}
+	
+	public void busRun() {
+		System.out.println("버스가 달립니다");
+		c.runElec();
+	}
+
+}
+
+```
+
+- ApplicationContext.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="userBean" class="kr.or.connect.diexam.UserBean"></bean>
+	<bean id="e" class="kr.or.connect.diexam.Engine"></bean>
+	<bean id="c" class="kr.or.connect.diexam.Car">
+		<property name="engine" ref="e"></property>
+	</bean>
+	<bean id="b" class="kr.or.connect.diexam.Bus">
+		<property name="car" ref="c"></property>
+	</bean>
+</beans>
+```
+
+- ApplicationContextExam03.java
+
+```java
+package kr.or.connect.diexam;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class ApplicationContextExam03 {
+	public static void main(String[] args) {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		Bus bus = (Bus) ac.getBean("b");
+		bus.busRun();
+	}
+}
+
+```
