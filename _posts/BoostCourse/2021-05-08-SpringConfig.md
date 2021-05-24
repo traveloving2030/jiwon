@@ -150,8 +150,6 @@ kr.or.connect.diexam.UserBean.UserBean userBean = new kr.or.connect.diexam.UserB
 - 스프링 컨테이너는 이러한 객체를 딱 하나만 가지고 있음 (싱글턴 패턴)
 - 나중에 더 깊숙히 공부하고싶다 => 디자인 패턴 공부
 
-
-
 - 이제 설정한 xml 파일을 읽어들이는 객체도 하나 생성해야함
 - kr.or.connect.diexam 패키지 내 ApplicationContextExam01 클래스 파일 생성
 - 여기서 이제 `Spring이 가지는 공장을 생성`할 것임
