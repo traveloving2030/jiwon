@@ -81,12 +81,126 @@ comments: true
     - 즉, 요청만 받고 일은 핸들러에게 넘겨버림
 - 클라이언트의 모든 요청을 받은 후 이를 처리할 핸들러에게 넘기고 핸들러가 처리한 결과를 받아 사용자에게 응답 결과를 보여줌
 - DispathcerServlet은 여러 컴포넌트를 이용해 작업을 처리
+- https://www.boostcourse.org/web316/lecture/254347?isDesc=false 참고
 
 
-# 참고
-  
-  https://www.boostcourse.org/web316/lecture/254347?isDesc=false
 
+# Spring MVC 웹 어플리케이션 환경설정
+
+- 웹 브라우저에서 http://localhost:8080/mvcexam/plusform 이라고 요청을 보내면 서버는 웹 브라우저에게 2개의 값을 입력받을 수 있는 입력 창과 버튼이 있는 화면 출력
+- 웹 브라우저에 2개의 값을 입력하고 버튼을 클릭하면 http://localhost:8080/mvcexam/plus URL로 2개의 입력값이 POST 방식으로 서버에게 전달한다. 서버는 2개의 값을 더한 후, 그 결과값을 JSP에게 request scope으로 전달하여 출력
+
+
+1. Maven Project생성
+    - maven-archetype-webapp
+    - ArtifactId : mvcexam
+
+2. Navigator에 src/main 폴더 내 java 폴더 생성
+
+3. pom.xml 수정
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>kr.or.connect</groupId>
+  <artifactId>mvcexam</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>mvcexam Maven Webapp</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <spring.version> 4.3.14.RELEASE</spring.version>
+  </properties>
+
+ <dependencies>
+   	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-tx</artifactId>
+		<version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-dbcp2</artifactId>
+		<version>2.1.1</version>
+	</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>   
+  	   <groupId>mysql</groupId>   
+       <artifactId>mysql-connector-java</artifactId>
+       <version>5.1.47</version>
+	</dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.1.0</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+	</dependency>
+    <!-- json 라이브러리 databind jackson-core, jackson-annotaion에 의존성이 있다. -->
+	<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.4</version>
+	</dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
+
+```
+
+4. Maven Update
+
+5. .settings에서 org.eclipse.wst.common.project.facet.core.xml에서 jst.web version 2.3 => `3.1로 수정`
+
+6. 이클립스 재시작
+
+7. 프로젝트 Properties 에서 Project Facets에서 Dynamic Web Module이 3.1로 잘 바뀌어져 있는지 확인
 
 
 
