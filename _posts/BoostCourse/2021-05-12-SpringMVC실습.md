@@ -258,3 +258,80 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 ```xml
  <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 ```
+
+
+# 원래 실습 목표로 돌아와서...
+
+- 웹 브라우저에서 http://localhost:8080/mvcexam/plusform 이라고 요청을 보내면 서버는 웹 브라우저에게 2개의 값을 입력받을 수 있는 입력 창과 버튼이 있는 화면 출력
+
+- views 폴더 내에 plusForm.jsp, plusResult.jsp 파일 생성
+
+```jsp
+<!-- plusForm.jsp -->
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" action="plus">  
+value1 : <input type="text" name="value1"><br>
+value2 : <input type="text" name="value2"><br>
+<input type="submit" value="확인">  
+</form>  
+</body>
+</html>
+```
+
+```jsp
+<!-- plusResult.jsp -->
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+${value1} 더하기 ${value2} (은/는) ${result} 입니다.
+</body>
+</html>
+```
+
+- Controller 생성 (핵심)
+  - mvcexam 프로젝트에서 패키지 생성 (kr.or.connect.mvcexam.controller)
+  - PlusController 클래스 생성
+
+```java
+package kr.or.connect.mvcexam.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class PlusController {
+	@GetMapping(path = "/plusform")
+	public String plusform() {
+		return "plusForm";
+	}
+
+	@PostMapping(path = "/plus")
+	public String plus(@RequestParam(name = "value1", required = true) int value1,
+			@RequestParam(name = "value2", required = true) int value2, ModelMap modelMap) {
+		int result = value1 + value2;
+
+		modelMap.addAttribute("value1", value1);
+		modelMap.addAttribute("value2", value2);
+		modelMap.addAttribute("result", result);
+		return "plusResult";
+	}
+}
+
+```
