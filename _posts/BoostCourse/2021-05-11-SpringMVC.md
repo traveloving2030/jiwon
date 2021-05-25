@@ -70,5 +70,23 @@ comments: true
         - 이때 Dispatcher Servlet은 Controller가 Return한 View Name을 알아오게 됨
     - ⑥,⑦ Controller가 Return한 View Name을 가지고 적절한 Resolver를 통해 View 출력(응답)
 
+- Spring MVC는 Dispatcher Servlet이 어떻게 동작하는지 이해하는 것이 중요!
+    - Dispatcher Servlet이 요청을 받아서 결과를 출력하기까지 아래의 컴포넌트를 사용하게 될 것
+
+
+# Dispatcher Servlet
+
+- 프론트 컨트롤러이다
+    - 회사로 전화걸면 내선 대표(총무팀)에서 받아 연결해주는 것과 같은 원리
+    - 즉, 요청만 받고 일은 핸들러에게 넘겨버림
+- 클라이언트의 모든 요청을 받은 후 이를 처리할 핸들러에게 넘기고 핸들러가 처리한 결과를 받아 사용자에게 응답 결과를 보여줌
+- DispathcerServlet은 여러 컴포넌트를 이용해 작업을 처리
+
+
+# 참고
+  
+  https://www.boostcourse.org/web316/lecture/254347?isDesc=false
+
+
 
 
