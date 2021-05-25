@@ -785,3 +785,82 @@ public class JdbcTest {
 }
 
 ```
+
+9. `한 건 Select &  Delte 예제 실습`
+
+  - RoleDaoSqls.java 수정
+
+```java
+public static final String SELECT_BY_ROLE_ID = "SELECT role_id, description FROM role where role_id = :roleId";
+public static final String DELETE_BY_ROLE_ID = "DELETE FROM role WHERE role_id = :roleId";
+```
+
+  - RoleDao.java 수정
+    - Collections.singletonMap : 파라미터 값이 여러개가 들어가지않고 딱 한건만 들어갈때 사용
+    - 한 건 Select하여 Query할 때는 queryForObject 메소드 사용
+    - Select했는데 해당 조건에 맞는 값이 없다 -> catch문을 사용하여 null을 return 하도록 한다
+
+```java
+package kr.or.connect.daoexam.dao;
+
+import static kr.or.connect.daoexam.dao.RoleDaoSqls.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import kr.or.connect.daoexam.dto.Role;
+
+@Repository
+public class RoleDao {
+	private NamedParameterJdbcTemplate jdbc;
+	private SimpleJdbcInsert insertAction;
+	private RowMapper<Role> rowMapper = BeanPropertyRowMapper.newInstance(Role.class);
+	
+
+	public RoleDao(DataSource dataSource) {
+		this.jdbc = new NamedParameterJdbcTemplate((DataSource) dataSource);
+		this.insertAction = new SimpleJdbcInsert((DataSource) dataSource)
+                .withTableName("role");
+	}
+	
+	public int deleteById(Integer id) {
+		Map<String, ?> params = Collections.singletonMap("roleId", id);
+		return jdbc.update(DELETE_BY_ROLE_ID, params);
+	}
+	
+	public Role selectById(Integer id) {
+		try {
+			Map<String, ?> params = Collections.singletonMap("roleId", id);
+			return jdbc.queryForObject(SELECT_BY_ROLE_ID, params, rowMapper);		
+		}catch(EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+}
+
+```
+
+  - JdbcTest.java 수정
+
+```java
+Role resultRole = roleDao.selectById(201);
+System.out.println(resultRole);
+		
+int deleteCount = roleDao.deleteById(500);
+System.out.println(deleteCount + "건 삭제하였습니다.");
+	
+Role resultRole2 = roleDao.selectById(500);
+System.out.println(resultRole2);
+```
