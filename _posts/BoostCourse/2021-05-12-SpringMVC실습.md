@@ -69,4 +69,4 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
     - @Configuration : 아 이 클래스는 Java Config 파일이구나~!
     - @EnableWebMvc : Web에 필요한 Bean들을 자동으로 설정해줌
         - 해당 Bean들은 RequestMappingHandlerMapping, RequestMappingHandlerAdapter, ExceptionHandlerExceptionResolver, MessageConverter 등이 있음
-    
+    - @ComponentScan : Spring MVC에서 Controller(핸들러)를 찾기 위해 사용
