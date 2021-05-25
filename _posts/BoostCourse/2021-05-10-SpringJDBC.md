@@ -497,7 +497,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import kr.or.connect.daoexam.dto.Role;
-import kr.or.connect.daoexam.main.DataSourceTest;
 
 @Repository
 public class RoleDao {
@@ -505,7 +504,7 @@ public class RoleDao {
 	private SimpleJdbcInsert insertAction;
 	private RowMapper<Role> rowMapper = BeanPropertyRowMapper.newInstance(Role.class);
 
-	public RoleDao(DataSourceTest dataSource) {
+	public RoleDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate((DataSource) dataSource);
 		this.insertAction = new SimpleJdbcInsert((DataSource) dataSource)
                 .withTableName("role");
@@ -516,6 +515,7 @@ public class RoleDao {
 	}
 }
 
+
 ```
 
 
@@ -525,7 +525,7 @@ public class RoleDao {
         - NamedParameterJdbcTemplate 객체 생성
 
 ```java
-	public RoleDao(DataSourceTest dataSource) {
+	public RoleDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate((DataSource) dataSource);
 		this.insertAction = new SimpleJdbcInsert((DataSource) dataSource)
                 .withTableName("role");
@@ -534,12 +534,72 @@ public class RoleDao {
 
 - 실제로 우리가 생성할 부분은 selectAll 해서 가져오는 부분
     - 복잡한 코드를 NamedParameterJdbcTemplate이 다 해줌
-    - import static kr.or.connect.daoexam.dao.RoleDaoSqls.* 해주면 RoleDaoSqls 내에 선언된 변수들을 클래스 이름없이 바로 사용할 수 있게끔 해줌
+    - import static kr.or.connect.daoexam.dao.RoleDaoSqls.*  : static 해주면 RoleDaoSqls 내에 선언된 변수들을 클래스 이름없이 바로 사용할 수 있게끔 해줌(SELECT_ALL 변수를 그대로 가져다 쓸 수 있음)
     - Collections.emptyMap() : sql문에 바인딩할 값이 있을 경우 바인딩 할 값을 전달할 목적으로 사용
-    - rowMapper : Select 한건 한건의 결과를 DTO에 저장
+    - rowMapper : Select 한건 한건의 결과를 DTO에 저장(BeanPropertyRowMapper을 이용하여 컬럼의 값을 자동으로 DTO에 담아주게 됨)
+    - query 메소드는 결과가 여러번일 때 내부적으로 반복하면서 DTO 생성
+      - 생성한 DTO를 List에 담아주고 그 해당 List를 반환해줌
     
 ```java
+  import static kr.or.connect.daoexam.dao.RoleDaoSqls.*;
+	private RowMapper<Role> rowMapper = BeanPropertyRowMapper.newInstance(Role.class);
+
 	public List<Role> selectAll(){
 		return jdbc.query(SELECT_ALL, Collections.emptyMap(), rowMapper);
 	}
 ```
+
+4. kr.or.connect.daoexam.config 패키지 내 ApplicationConfig 클래스에 RoleDAO에서 명시한 Bean 읽어오기
+  - ComponentScan으로 읽어낼거야!
+  - @ComponentScan을 추가함으로서 RoleDAO의 @Repository가 붙은 클래스를 Bean으로 등록해둔 것과 같은 역할을 해줄 것!
+
+```java
+package kr.or.connect.daoexam.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
+@Configuration
+@ComponentScan(basePackages = {"kr.or.connect.daoexam.dao"})
+@Import({DBConfig.class})
+public class ApplicationConfig {
+
+}
+```
+
+5. 이제 이 부분이 제대로 잘 동작하는지 확인
+  - kr.or.connect.daoexam.main 패키지 내 SelectAllTest.java 클래스 생성
+  - 동작확인
+
+```java
+package kr.or.connect.daoexam.main;
+
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import kr.or.connect.daoexam.config.ApplicationConfig;
+import kr.or.connect.daoexam.dao.RoleDao;
+import kr.or.connect.daoexam.dto.Role;
+
+public class SelectAllTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class); 
+		
+		RoleDao roleDao =ac.getBean(RoleDao.class);
+
+		List<Role> list = roleDao.selectAll();
+		
+		for(Role role: list) {
+			System.out.println(role);
+		}
+	}
+
+}
+
+```
+
