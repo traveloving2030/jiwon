@@ -506,8 +506,6 @@ public class RoleDao {
 
 	public RoleDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate((DataSource) dataSource);
-		this.insertAction = new SimpleJdbcInsert((DataSource) dataSource)
-                .withTableName("role");
 	}
 	
 	public List<Role> selectAll(){
@@ -527,8 +525,6 @@ public class RoleDao {
 ```java
 	public RoleDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate((DataSource) dataSource);
-		this.insertAction = new SimpleJdbcInsert((DataSource) dataSource)
-                .withTableName("role");
 	}
 ```
 
@@ -603,3 +599,189 @@ public class SelectAllTest {
 
 ```
 
+
+6. `Insert문 실습` 
+  - 그림을 보면서 어디를 추가해주면 좋을지 생각해보기
+    - Insert문의 경우 따로 RoleDaoSqls에 Query를 추가해주지 않아도 됨
+    - DTO구현되어있고
+    - SimpleJdbcInsert, NamedParameterJdbcTemplate은 SpringJDBC가 알아서 해줄거고
+    - DataSource는 구현되어있고
+    - DBConfig, ApplicationConfig 역시 알맞게 이미 넣어주었다
+    - 남은건, RoleDAO만 바꿔주면 되겠네!
+      - SimpleJdbcInsert 객체 생성
+
+```java
+//RoleDao.java
+package kr.or.connect.daoexam.dao;
+
+import static kr.or.connect.daoexam.dao.RoleDaoSqls.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import kr.or.connect.daoexam.dto.Role;
+
+@Repository
+public class RoleDao {
+	private NamedParameterJdbcTemplate jdbc;
+	private SimpleJdbcInsert insertAction;
+	private RowMapper<Role> rowMapper = BeanPropertyRowMapper.newInstance(Role.class);
+
+	public RoleDao(DataSource dataSource) {
+		this.jdbc = new NamedParameterJdbcTemplate((DataSource) dataSource);
+		this.insertAction = new SimpleJdbcInsert((DataSource) dataSource)
+                .withTableName("role");
+	}
+	
+	
+	public int insert(Role role) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(role);
+		return insertAction.execute(params);
+	}
+}
+
+```
+
+7. 이 부분이 제대로 잘 동작하는지 확인
+  - kr.or.connect.daoexam.main 패키지 내 JdbcTest.java 클래스 생성
+
+```java
+package kr.or.connect.daoexam.main;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import kr.or.connect.daoexam.config.ApplicationConfig;
+import kr.or.connect.daoexam.dao.RoleDao;
+import kr.or.connect.daoexam.dto.Role;
+
+public class JdbcTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+
+		RoleDao roleDao = ac.getBean(RoleDao.class);
+		
+		Role role = new Role();
+		role.setRoleId(201);
+		role.setDescription("PROGRAMMER");
+		
+		int count = roleDao.insert(role);
+		System.out.println(count + "건 입력하였습니다.");
+	}
+
+}
+
+```
+
+8. `Update문 실습`
+  - Update는 Query문이 필요 => RoleDaoSqls 수정
+  - 값이 들어가는 `:description, :roleId` 이 부분이 나중에 값으로 바인딩 될 부분
+
+  
+```java
+package kr.or.connect.daoexam.dao;
+
+public class RoleDaoSqls {
+	public static final String SELECT_ALL = "SELECT role_id, description FROM role order by role_id";
+	public static final String UPDATE = "UPDATE role SET description = :description WHERE ROLE_ID = :roleId";
+}
+```
+
+  - RoleDAO.java 수정
+
+```java
+//RoleDao.java
+package kr.or.connect.daoexam.dao;
+
+import static kr.or.connect.daoexam.dao.RoleDaoSqls.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import kr.or.connect.daoexam.dto.Role;
+
+@Repository
+public class RoleDao {
+	private NamedParameterJdbcTemplate jdbc;
+	private SimpleJdbcInsert insertAction;
+	private RowMapper<Role> rowMapper = BeanPropertyRowMapper.newInstance(Role.class);
+
+	public RoleDao(DataSource dataSource) {
+		this.jdbc = new NamedParameterJdbcTemplate((DataSource) dataSource);
+		this.insertAction = new SimpleJdbcInsert((DataSource) dataSource)
+                .withTableName("role");
+	}
+	
+	public List<Role> selectAll(){
+		return jdbc.query(SELECT_ALL, Collections.emptyMap(), rowMapper);
+	}
+	
+	public int insert(Role role) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(role);
+		return insertAction.execute(params);
+	}
+	
+	public int update(Role role) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(role);
+		return jdbc.update(UPDATE, params);
+	}
+	
+}
+
+```
+
+  - JdbcTest.java 수정
+
+```java
+package kr.or.connect.daoexam.main;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import kr.or.connect.daoexam.config.ApplicationConfig;
+import kr.or.connect.daoexam.dao.RoleDao;
+import kr.or.connect.daoexam.dto.Role;
+
+public class JdbcTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+
+		RoleDao roleDao = ac.getBean(RoleDao.class);
+		
+		Role role = new Role();
+		role.setRoleId(201);
+		role.setDescription("Student");
+		
+		int count = roleDao.update(role);
+		System.out.println(count + "건 입력하였습니다.");
+	}
+
+}
+
+```
