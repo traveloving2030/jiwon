@@ -415,7 +415,10 @@ PRIMARY KEY(id)
 );
 ```
 
-6. kr.or.connect.guestbook.dto 패키지 생성
+# Repository Layer 설계
+- 즉, 실제 데이터베이스에 접근해서 데이터를 가져오는 일들을 수행함
+
+1. kr.or.connect.guestbook.dto 패키지 생성
     - Guestbook과 Log 클래스 생성
 
 ```java
@@ -502,7 +505,7 @@ public class Log {
 }
 ```
 
-7. kr.or.connect.guestbook.dao 패키지 생성
+2. kr.or.connect.guestbook.dao 패키지 생성
 - LogDao클래스 생성
     - usingGeneratedKeyColumns("id")
         - id 컬럼의 값을 자동으로 입력하도록 설정하게 해줌
@@ -654,5 +657,21 @@ public class GuestbookDaoTest {
 }
 ```
 
-# 중간점검 - 지금까지 Repository Layer를 작성하였음!!
+
+# Service Layer 설계
+- 비지니스 메소드를 가지고 있는 Service 객체가 동작하게 함
+- 즉, Repository Layer에 있는 DAO 객체를 사용하게 됨
+- kr.or.connect.guestbook.service 패키지 생성
+- 실제로 구현체를 가지고 있을 kr.or.connect.guestbook.service.impl 패키지 생성
+
+1. kr.or.connect.guestbook.service 패키지에 GuestbookService Interface 생성
+    - 비지니스가 어떤것들이 있는지 잘 생각
+    - 방명록 요구사항을 살펴보자
+        - 방명록 정보 페이지별로 읽어오기
+        - 페이징 처리를 위해 전체 건수 구하기
+        - 방명록 저장하기 등등
+
+
+
+
 
