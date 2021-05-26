@@ -76,7 +76,7 @@ comments: true
 
 # 환경설정
 
-1. Maven Project 생성(SpringMVC실습편 참고) 후 pom.xml 수정
+1. pom.xml 수정
 
 
 ```xml
@@ -84,7 +84,7 @@ comments: true
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 <modelVersion>4.0.0</modelVersion>
-<groupId>kr.or.connect</groupId>
+<groupId>kr.or.connect.guestbook</groupId>
 <artifactId>guestbook</artifactId>
 <packaging>war</packaging>
 <version>0.0.1-SNAPSHOT</version>
@@ -96,15 +96,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 <!-- jackson -->
 <jackson2.version>2.8.6</jackson2.version>
 </properties>
-<dependencies>
-<dependency>
-<groupId>junit</groupId>
-<artifactId>junit</artifactId>
-<version>3.8.1</version>
-<scope>test</scope>
-</dependency>
 
-<!-- Spring -->
+<dependencies>
+<!-- SPRING -->
 <dependency>
 <groupId>org.springframework</groupId>
 <artifactId>spring-context</artifactId>
@@ -112,9 +106,33 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 </dependency>
 <dependency>
 <groupId>org.springframework</groupId>
+<artifactId>spring-jdbc</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
 <artifactId>spring-webmvc</artifactId>
 <version>${spring.version}</version>
 </dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-tx</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<!-- MYSQL -->
+
+<dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<version>5.1.45</version>
+</dependency>
+<!-- DATASOURCE -->
+<dependency>
+<groupId>org.apache.commons</groupId>
+<artifactId>commons-dbcp2</artifactId>
+<version>2.0</version>
+</dependency>
+
 
 <!-- Servlet JSP JSTL -->
 <dependency>
@@ -135,31 +153,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 <version>1.2</version>
 </dependency>
 
-<!-- spring jdbc & jdbc driver & connection pool -->
-<dependency>
-<groupId>org.springframework</groupId>
-<artifactId>spring-jdbc</artifactId>
-<version>${spring.version}</version>
-</dependency>
-
-<dependency>
-<groupId>org.springframework</groupId>
-<artifactId>spring-tx</artifactId>
-<version>${spring.version}</version>
-</dependency>
-
-<dependency>
-<groupId>mysql</groupId>
-<artifactId>mysql-connector-java</artifactId>
-<version>5.1.45</version>
-</dependency>
-
-<!-- basic data source -->
-<dependency>
-<groupId>org.apache.commons</groupId>
-<artifactId>commons-dbcp2</artifactId>
-<version>2.1.1</version>
-</dependency>
 
 <!-- Jackson Module -->
 <dependency>
@@ -167,14 +160,22 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 <artifactId>jackson-databind</artifactId>
 <version>${jackson2.version}</version>
 </dependency>
-
 <dependency>
 <groupId>com.fasterxml.jackson.datatype</groupId>
 <artifactId>jackson-datatype-jdk8</artifactId>
 <version>${jackson2.version}</version>
 </dependency>
+
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>3.8.1</version>
+<scope>test</scope>
+</dependency>
 </dependencies>
+<!-- FOR JAVA 1.8 -->
 <build>
+<finalName>guestbook</finalName>
 <plugins>
 <plugin>
 <groupId>org.apache.maven.plugins</groupId>
@@ -197,9 +198,14 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 # 실습 Start
 
-1. 설정파일 패키지 만들기 (kr.or.connect.guestbook.config)
-    - WebMvcContextConfiguration.java 클래스 생성
+1. 4개의 설정파일 패키지 만들기 (kr.or.connect.guestbook.config)
+    - WebMvcContextConfiguration.java
+    - DBConfig.java
+    - ApplicationConfig.java
+    - web.xml
 
+- WebMvcContextConfiguration.java 클래스 생성
+        - `이 클래스에 명시되는 설정들은 Dispatcher Servlet이 읽어들임`
 ```java
 package kr.or.connect.guestbook.config;
 
@@ -246,3 +252,407 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
     }
 }
 ```
+
+2. kr.or.connect.guestbook.config 내 DBConfig.java 파일 생성
+    - @EnableTransactionManagement는 트랜잭션과 관련된 설정을 자동으로 해줌
+    - 사용자의 트랜잭션 처리를 위한 Flatform TransactionManager를 설정하기 위해서는 TransactionManagementConfigurer를 구현하고 annotationDrivenTransactionManager()를 Overiding해줘야함
+
+```java
+package kr.or.connect.guestbook.config;
+
+import javax.sql.DataSource;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.TransactionManagementConfigurer;
+
+@Configuration
+@EnableTransactionManagement
+public class DBConfig implements TransactionManagementConfigurer {
+	private String driverClassName = "com.mysql.jdbc.Driver";
+
+	private String url = "jdbc:mysql://localhost:3306/connectdb?useUnicode=true&characterEncoding=utf8";
+
+	private String username = "connectuser";
+
+	private String password = "connect123!@#";
+
+	@Bean
+	public DataSource dataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName(driverClassName);
+		dataSource.setUrl(url);
+		dataSource.setUsername(username);
+		dataSource.setPassword(password);
+		return dataSource;
+	}
+
+	@Override
+	public PlatformTransactionManager annotationDrivenTransactionManager() {
+		return transactionManger();
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManger() {
+		return new DataSourceTransactionManager(dataSource());
+	}
+}
+```
+
+3. kr.or.connect.guestbook.config 내 ApplicationConfig.java 파일 생성
+    - DAO 또는 Service Component에 구현된 내용들을 읽어오면됨
+
+```java
+package kr.or.connect.guestbook.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
+@Configuration
+@ComponentScan(basePackages = { "kr.or.connect.guestbook.dao",  "kr.or.connect.guestbook.service"})
+@Import({ DBConfig.class })
+public class ApplicationConfig {
+
+}
+```
+
+4. web.xml 파일 수정
+    - `모든 요청 /을 받을 때 DispatcherServlet이 받음`(이 Servlet을 Front Controller로 등록하는 과정)
+    - 위에서 설정파일들을 나누었다(레이어드 아키텍처의 특징상` Presentation Layer와 나머지 부분들을 분리`하기 위해)
+        - `Business Logic쪽에서 사용`되는 것이 `DBConfig와 ApplicationConfig에 나누어 줌`
+        - 이 부분을 읽어들이기 위해 사용하는 것이 아래 `listener 부분임`
+    - filter부분은 요청이 수행되기 전, 응답이 나가기 전에 한번씩 걸쳐서 수행을 할 수 있도록 해줌
+
+```xml
+ <?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+	<display-name>Spring JavaConfig Sample</display-name>
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+		</param-value>
+	</context-param>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>kr.or.connect.guestbook.config.ApplicationConfig
+		</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>mvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>kr.or.connect.guestbook.config.WebMvcContextConfiguration
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>mvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+</web-app>
+```
+
+4. WEB-INF/views 폴더 생성후 밑에 index.jsp 파일 생성
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% 
+	response.sendRedirect("list");
+%>
+```
+
+5. MySQL guestbook, log Table 생성
+
+```sql
+CREATE TABLE guestbook(
+id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+name varchar(255) NOT NULL,
+content text,
+regdate datetime,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE log(
+id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+ip varchar(255) NOT NULL,
+method varchar(10) NOT NULL,
+regdate datetime,
+PRIMARY KEY(id)
+);
+```
+
+6. kr.or.connect.guestbook.dto 패키지 생성
+    - Guestbook과 Log 클래스 생성
+
+```java
+//Guestbook.java
+package kr.or.connect.guestbook.dto;
+
+import java.util.Date;
+
+public class Guestbook {
+	private Long id;
+	private String name;
+	private String content;
+	private Date regdate;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+	@Override
+	public String toString() {
+		return "Guestbook [id=" + id + ", name=" + name + ", content=" + content + ", regdate=" + regdate + "]";
+	}
+}
+```
+
+```java
+//Log.java
+package kr.or.connect.guestbook.dto;
+
+import java.util.Date;
+
+public class Log {
+	private Long id;
+	private String ip;
+	private String method;
+	private Date regdate;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getMethod() {
+		return method;
+	}
+	public void setMethod(String method) {
+		this.method = method;
+	}
+	public Date getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+	@Override
+	public String toString() {
+		return "Log [id=" + id + ", ip=" + ip + ", method=" + method + ", regdate=" + regdate + "]";
+	}
+}
+```
+
+7. kr.or.connect.guestbook.dao 패키지 생성
+- LogDao클래스 생성
+    - usingGeneratedKeyColumns("id")
+        - id 컬럼의 값을 자동으로 입력하도록 설정하게 해줌
+    - insertAction.executeAndReturnKey
+        - insert문을 내부적으로 생성해서 실행하고 자동으로 생성된 id값을 리턴하게 됨
+
+```java
+package kr.or.connect.guestbook.dao;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import kr.or.connect.guestbook.dto.Log;
+
+@Repository
+public class LogDao {
+	private NamedParameterJdbcTemplate jdbc;
+    private SimpleJdbcInsert insertAction;
+
+    public LogDao(DataSource dataSource) {
+        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+        this.insertAction = new SimpleJdbcInsert(dataSource)
+                .withTableName("log")
+                .usingGeneratedKeyColumns("id");
+    }
+
+	public Long insert(Log log) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(log);
+		return insertAction.executeAndReturnKey(params).longValue();
+	}
+}
+```
+
+- GuestbookDaoSqls 쿼리문 클래스 생성
+
+```java
+package kr.or.connect.guestbook.dao;
+
+public class GuestbookDaoSqls {
+	public static final String SELECT_PAGING = "SELECT id, name, content, regdate FROM guestbook ORDER BY id DESC limit :start, :limit";
+	public static final String DELETE_BY_ID = "DELETE FROM guestbook WHERE id = :id";
+	public static final String SELECT_COUNT = "SELECT count(*) FROM guestbook";
+}
+```
+
+- GuestbookDao 클래스 생성
+
+```java
+package kr.or.connect.guestbook.dao;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import kr.or.connect.guestbook.dto.Guestbook;
+
+import static kr.or.connect.guestbook.dao.GuestbookDaoSqls.*;
+
+@Repository
+public class GuestbookDao {
+	 private NamedParameterJdbcTemplate jdbc;
+	    private SimpleJdbcInsert insertAction;
+	    private RowMapper<Guestbook> rowMapper = BeanPropertyRowMapper.newInstance(Guestbook.class);
+
+	    public GuestbookDao(DataSource dataSource) {
+	        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+	        this.insertAction = new SimpleJdbcInsert(dataSource)
+	                .withTableName("guestbook")
+	                .usingGeneratedKeyColumns("id");
+	    }
+	    
+	    public List<Guestbook> selectAll(Integer start, Integer limit) {
+	    		Map<String, Integer> params = new HashMap<>();
+	    		params.put("start", start);
+	    		params.put("limit", limit);
+	        return jdbc.query(SELECT_PAGING, params, rowMapper);
+	    }
+
+
+		public Long insert(Guestbook guestbook) {
+			SqlParameterSource params = new BeanPropertySqlParameterSource(guestbook);
+			return insertAction.executeAndReturnKey(params).longValue();
+		}
+		
+		public int deleteById(Long id) {
+			Map<String, ?> params = Collections.singletonMap("id", id);
+			return jdbc.update(DELETE_BY_ID, params);
+		}
+		
+		public int selectCount() {
+			return jdbc.queryForObject(SELECT_COUNT, Collections.emptyMap(), Integer.class);
+		}
+}
+```
+
+- 지금까지 만든거 잘 작동하는지 확인하기 위해 GuestbookDaoTest Class 생성
+    - 어떤 메소드를 하나씩 구현하고나서 그 메소드가 `잘 동작하는지 테스트하는것이 매우 중요!!`    
+    - 매번 main 메소드 적어서 작동 확인하기가 번거롭다
+    - `J유닛`과 같은 `단위테스트 공부 필요`
+```java
+package kr.or.connect.guestbook.dao;
+
+import java.util.Date;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import kr.or.connect.guestbook.config.ApplicationConfig;
+import kr.or.connect.guestbook.dto.Guestbook;
+import kr.or.connect.guestbook.dto.Log;
+
+public class GuestbookDaoTest {
+
+	public static void main(String[] args) {
+		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class); 
+//		GuestbookDao guestbookDao = ac.getBean(GuestbookDao.class);
+//		
+//		Guestbook guestbook = new Guestbook();
+//		guestbook.setName("정지원");
+//		guestbook.setContent("반갑습니다. 여러분.");
+//		guestbook.setRegdate(new Date());
+//		Long id = guestbookDao.insert(guestbook);
+//		System.out.println("id : " + id);
+		
+		LogDao logDao = ac.getBean(LogDao.class);
+		Log log = new Log();
+		log.setIp("127.0.0.1");
+		log.setMethod("insert");
+		log.setRegdate(new Date());
+		logDao.insert(log);
+	}
+
+}
+```
+
+# 중간점검 - 지금까지 Repository Layer를 작성하였음!!
+
