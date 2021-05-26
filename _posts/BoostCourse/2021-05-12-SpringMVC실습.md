@@ -250,17 +250,9 @@ public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter {
 </html>
 ```
 
-# 404 에러 뜨는 원인
-
-- web.xml의 web-app태그에 xml 스키마 정의가 필요함
-- 태그시작부분을 아래와 같이 삽입해줘야 함
-
-```xml
- <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-```
 
 
-# 원래 실습 목표로 돌아와서...
+# 실습1
 
 - 웹 브라우저에서 http://localhost:8080/mvcexam/plusform 이라고 요청을 보내면 서버는 웹 브라우저에게 2개의 값을 입력받을 수 있는 입력 창과 버튼이 있는 화면 출력
 
@@ -335,3 +327,43 @@ public class PlusController {
 }
 
 ```
+
+  - plusForm.jsp 렌더링은 Get방식으로 처리할 것이기 때문이 @GetMapping 적용
+    - 이때, 이 일을 처리하게 될 메소드를 지정하는데, View Name을 넘겨줘야 함
+    - 실제 Get 요청이 들어왔을 때 이 View 보여줘요~ 알려주면 됨
+    - 그냥 String으로 View Name을 처리하기 위해 plusForm 메소드 선언
+    - plusForm()가 리턴하는 문자열 "plusForm"은 WebMvcContextConfiguration.java 에서 `WEB-INF/views 에서 plusForm.jsp를 찾아서 View로 보여줌`
+
+```java
+	@GetMapping(path = "/plusform")
+	public String plusform() {
+		return "plusForm";
+	}
+
+```
+  - mvcexam 프로젝트 run on server 수행하여 http://localhost:8080/mvcexam/plusform 입력시 화면 나타나면 됨
+
+
+  - plufsForj.jsp 값 입력 Post 처리
+    - @RequestParam 어노테이션으로 입력 파라미터 받음
+    - request 객체를 생성하기 위해 HttpServletRequest를 Spring에서 직접 사용할 수도 있지만 우리는 ModelMap 객체를 사용
+      - `ModelMap 객체`는 Spring 프레임워크가 알아서 request 객체로 만들어줌!
+    - 반환하는 String 값 "plusResult"는 WebMvcContextConfiguration.java 에서 WEB-INF/views 에서 plusResult.jsp를 찾아서 View로 보여줌
+
+```java
+	@PostMapping(path = "/plus")
+	public String plus(@RequestParam(name = "value1", required = true) int value1,
+			@RequestParam(name = "value2", required = true) int value2, ModelMap modelMap) {
+		int result = value1 + value2;
+
+		modelMap.addAttribute("value1", value1);
+		modelMap.addAttribute("value2", value2);
+		modelMap.addAttribute("result", result);
+		return "plusResult";
+	}
+}
+```
+
+
+# 실습2
+

@@ -180,4 +180,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 7. 프로젝트 Properties 에서 Project Facets에서 Dynamic Web Module이 3.1로 잘 바뀌어져 있는지 확인
 
 
+# 404 에러 뜨는 원인
 
+ ## web.xml 오류
+
+  - web.xml의 web-app태그에 xml 스키마 정의가 필요함
+  - 태그시작부분을 아래와 같이 삽입해줘야 함
+
+    ```xml
+    <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    ```
+  - `web.xml을 수정했을 때`는 실행중이던 Servers 탭에서 해당 프로젝트를 삭제 후 Project 탭에서 Clean 하고 다시 서버 실행해야함
+
+  
+  ## pom.xml 오류
+
+  - Maven 프로젝트 우클릭 후 Maven 탭에서 Update Project 해줘야함!
