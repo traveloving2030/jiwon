@@ -367,3 +367,190 @@ public class PlusController {
 
 # 실습2
 
+- http://localhost:8080/mvcexam/userform 으로 요청을 보내면 이름, email, 나이를 물어보는 폼이 보여진다.
+- 폼에서 값을 입력하고 확인을 누르면 post방식으로 http://localhost:8080/mvcexam/regist 에 정보를 전달하게 된다.
+- regist에서는 입력받은 결과를 콘솔 화면에 출력한다.
+
+- views 폴더 내 userform.jsp 만들기
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" action="regist">  
+name : <input type="text" name="name"><br>
+email : <input type="text" name="email"><br>
+age : <input type="text" name="age"><br>
+<input type="submit" value="확인"> 
+</body>
+</html>
+```
+
+- 요청을 처리할 Controller 생성
+  - kr.or.connect.mvcexam.controller 패키지 내 UserController.java 클래스 파일 생성
+
+
+
+```java
+package kr.or.connect.mvcexam.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import kr.or.connect.mvcexam.dto.User;
+
+@Controller
+public class UserController {
+	@RequestMapping(path="/userform", method=RequestMethod.GET)
+	public String userform() {
+		return "userform";
+	}
+	
+	@RequestMapping(path="/regist", method=RequestMethod.POST)
+	public String regist(@ModelAttribute User user) {
+
+		System.out.println("사용자가 입력한 user 정보입니다. 해당 정보를 이용하는 코드가 와야합니다.");
+		System.out.println(user);
+		return "regist";
+	}
+}
+```
+  - 지난번 실습과의 차이
+    - @GetMapping을 사용하였으나, 이번엔 @RequestMapping 사용
+    - @ModelAttribute에 param을 하나씩 다 일일이 가져오는것이 아니라 `DTO를 이용하여 가방안에 한꺼번에` 가져온다!
+      - @ModelAttribute에 User DTO 객체만 가져오면 Spring 컨테이너가 알아서 파라미터를 넘겨준다!
+      - DTO와 req.param 내 name 속성을 반드시 일치시켜준다!
+  
+- DTO를 담을 패키지 생성 (kr.or.connect.mvcexam.dto 패키지 생성 후  User.java 클래스 파일 생성
+
+```java
+package kr.or.connect.mvcexam.dto;
+
+public class User {
+	private String name;
+	private String email;
+	private int age;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", email=" + email + ", age=" + age + "]";
+	}	
+}
+```
+
+- regist() 결과 View로 뿌려주는 regist.jsp 생성(views 폴더내에 위치)
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>잘 등록되었습니다</h2>
+</body>
+</html>
+```
+
+
+# 실습3
+
+- http://localhost:8080/mvcexam/goods/{id} 으로 요청을 보낸다.
+- 서버는 id를 콘솔에 출력하고, 사용자의 브라우저 정보를 콘솔에 출력한다.
+- 서버는 HttpServletRequest를 이용해서 사용자가 요청한 PATH정보를 콘솔에 출력한다.
+
+
+- views 폴더 내 goodsById.jsp 만들기
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+id : ${id } <br>
+user_agent : ${userAgent }<br>
+path : ${path }<br>
+</body>
+</html>
+```
+
+- 요청을 처리할 Controller 생성
+  - kr.or.connect.mvcexam.controller 패키지 내 GoodsController.java 클래스 파일 생성
+
+```java
+package kr.or.connect.mvcexam.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+
+@Controller
+public class GoodsController {
+	@GetMapping("/goods/{id}")
+	public String getGoodsById(@PathVariable(name="id") int id,
+							   @RequestHeader(value="User-Agent", defaultValue="myBrowser") String userAgent,
+							  HttpServletRequest request,
+							  ModelMap model
+							  ) {
+		
+		String path = request.getServletPath();
+		
+		System.out.println("id : " + id);
+		System.out.println("user_agent : " + userAgent);
+		System.out.println("path : " + path);
+		
+		model.addAttribute("id", id);
+		model.addAttribute("userAgent", userAgent);
+		model.addAttribute("path", path);
+		return "goodsById";
+	}
+}
+```
+  - @GetMapping을 이용하여 Url 요청이 들어왔을 때 뒤에 들어오는 값 id를 Path Variable로 받겠다
+  - Request Header에서 넘어오는 정보는 @RequestHeader를 이용하여 값들을 String변수 userAgent에 대입
+
+- 서버 실행시켜보기
+  - http://localhost:8080/mvcexam/goods/2 를 입력한 결과
+
+```json
+id : 2
+user_agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36
+path : /goods/2
+```
