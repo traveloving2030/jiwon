@@ -13,30 +13,48 @@ comments: true
 * Email : traveloving2030@gmail.com
 * 궁금하신 사항은 메일 또는 게시글에 댓글을 남겨주세요
 
-## 이력
+## Education
 * 한국항공대학교 전자공학과 학사 졸업(2020.02)
 * 한국항공대학교 AI 블록체인 융합 연구실 석사 과정 중 (2022-02 졸업예정)
+
+## Experience
 * Public, Private 블록체인 강사 
-    - NIPA(정보통신산업진흥원), KITRI(한국정보기술연구원), 한국에이아이블록체인융합원(kabc), 서울 ICT이노베이션스퀘어 블록체인놀이터
+    - (2019) 한국정보기술연구원 퍼블릭 블록체인 강사
+    - (2019) 한경아카데미 프라이빗 블록체인 강사
+    - (2019~2021)한국표준협회(KSA) 블록체인 놀이터 퍼블릭 블록체인 강사
+    - (2019~2021)월튼블록체인교욱원 퍼블릭, 프라이빗 블록체인 강사
+    - (2019~2021)정보산업연합회 퍼블릭 블록체인 강사
 * 네이버 BoostCourse 웹프로그래밍 (풀스택 과정) 수료
 * 과학기술정보통신부 블록체인 전문가 양성과정 수료
 
-## 주요 능력
-* Private BlockChain (Hyperledger Fabric) 개발
-* Public BlockChain (Ethereum) 개발
+## Advanced Skill
+* 웹 백앤드 개발(MySQL, Java, JSP, Spring Framework)
 * 웹 프론트앤드 개발(HTML, CSS, JavaScript)
-* 웹 백앤드 개발(MySQL, Java, JSP, Spring)
+* Private BlockChain (Hyperledger Fabric) 개발
+    - Hyperledger Fabric BlockChain Network 개발
+    - Hyperledger Fabric dApp 개발
+* Public BlockChain (Ethereum) 개발
+    - Ethereum 기반 dApp 개발
 * 인공지능 모델링 및 개발(LSTM, Time-GAN))
-* NodeJS 프로그래밍
-* ReactJS, AngularJS 프로그래밍
 
-## 논문
+## Programming Skill
+* C, C++, Python, Java, Solidity, GO, JavaScript(NodeJS, ReactJS, AngularJS)
+
+
+## Research
 * 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장 연구 (Time-GAN Data Integrity Assurance Using Hyperledger Fabric Blockchain)
 
-## 자격증
+## Project
+- (2018) 하이퍼레저 패브릭 블록체인 기반 건물안전등급 등록 및 조회 서비스
+- (2019) 하이퍼레저 패브릭 블록체인 기반 출입관리시스템
+- (2020) 이더리움과 하이퍼레저 패브릭 블록체인 기반 과외매칭 서비스
+- (2020) 하이퍼레저 패브릭 블록체인 기반 마이데이터 플랫폼 서비스
+- (2020~2021) 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장
+
+## Certification
 * 정보처리기사
 
-## 어학
+## Additional
 * 토익 860
 
 ## 수상
