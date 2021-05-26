@@ -80,11 +80,11 @@ comments: true
 
 
 # 전체 아키텍처
-- Presentation Layer : Controller 객체가 동작하게함 (지금 과정은 Web에 보이게 만듦)
+- `Presentation Layer` : `Controller 객체가 동작`하게함 (지금 과정은 Web에 보이게 만듦)
     - 만약, Presentation Layer를 Window Programming으로 바꾸고 싶으면 ServiceLayer와 Repository Layer은 그대로 두고 Presentation Layer만 바꿔주면 됨
     - 즉, `유지보수`가 매우 용이!
-- Service Layer : 비지니스 메소드를 가지고 있는 Service 객체가 동작하게 함
-- Repository Layer : 실제 데이터베이스에 접근해서 데이터를 가져오는 일들 수행
+- `Service Layer` : `비지니스 메소드를 가지고 있는 Service 객체가 동작`하게 함
+- `Repository Layer` : `실제 데이터베이스에 접근해서 데이터를 가져오는 일`들 수행
     - Service Layer는 Repository Layer에 있는 DAO 객체를 사용하게 됨
 - 우리는 개발하면서 `이 로직을 어떤 Layer에 놓을까`를 고민해야함!
 
