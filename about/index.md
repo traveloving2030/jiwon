@@ -18,14 +18,14 @@ comments: true
 * 한국항공대학교 AI 블록체인 융합 연구실 석사 과정 중 (2022-02 졸업예정)
 
 ## Experience
+* 네이버 BoostCourse 웹프로그래밍 (풀스택 과정) 수료
+* 과학기술정보통신부 블록체인 전문가 양성과정 수료
 * Public, Private 블록체인 강사 
     - (2019) 한국정보기술연구원 퍼블릭 블록체인 강사
     - (2019) 한경아카데미 프라이빗 블록체인 강사
     - (2019~2021)한국표준협회(KSA) 블록체인 놀이터 퍼블릭 블록체인 강사
     - (2019~2021)월튼블록체인교욱원 퍼블릭, 프라이빗 블록체인 강사
     - (2019~2021)정보산업연합회 퍼블릭 블록체인 강사
-* 네이버 BoostCourse 웹프로그래밍 (풀스택 과정) 수료
-* 과학기술정보통신부 블록체인 전문가 양성과정 수료
 
 ## Advanced Skill
 * 웹 백앤드 개발(MySQL, Java, JSP, Spring Framework)
@@ -39,7 +39,6 @@ comments: true
 
 ## Programming Skill
 * C, C++, Python, Java, Solidity, GO, JavaScript(NodeJS, ReactJS, AngularJS)
-
 
 ## Research
 * 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장 연구 (Time-GAN Data Integrity Assurance Using Hyperledger Fabric Blockchain)
