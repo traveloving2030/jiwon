@@ -549,7 +549,7 @@ public class GoodsController {
 - 서버 실행시켜보기
   - http://localhost:8080/mvcexam/goods/2 를 입력한 결과
 
-```json
+```text
 id : 2
 user_agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36
 path : /goods/2
