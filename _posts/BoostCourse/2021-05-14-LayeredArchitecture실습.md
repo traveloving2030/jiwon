@@ -72,3 +72,177 @@ comments: true
 - (4) 각각 사용할 DTO 필요
 - (5) View의 역할을 수행하기 위해 list.jsp 작성
 - (6) index.jsp는 Redirect하는 코드만 나오게 될 것
+
+
+# 환경설정
+
+1. Maven Project 생성(SpringMVC실습편 참고) 후 pom.xml 수정
+
+
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>kr.or.connect</groupId>
+<artifactId>guestbook</artifactId>
+<packaging>war</packaging>
+<version>0.0.1-SNAPSHOT</version>
+<name>guestbook Maven Webapp</name>
+<url>http://maven.apache.org</url>
+<properties>
+<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<spring.version>4.3.5.RELEASE</spring.version>
+<!-- jackson -->
+<jackson2.version>2.8.6</jackson2.version>
+</properties>
+<dependencies>
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>3.8.1</version>
+<scope>test</scope>
+</dependency>
+
+<!-- Spring -->
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-context</artifactId>
+<version>${spring.version}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-webmvc</artifactId>
+<version>${spring.version}</version>
+</dependency>
+
+<!-- Servlet JSP JSTL -->
+<dependency>
+<groupId>javax.servlet</groupId>
+<artifactId>javax.servlet-api</artifactId>
+<version>3.1.0</version>
+<scope>provided</scope>
+</dependency>
+<dependency>
+<groupId>javax.servlet.jsp</groupId>
+<artifactId>javax.servlet.jsp-api</artifactId>
+<version>2.3.1</version>
+<scope>provided</scope>
+</dependency>
+<dependency>
+<groupId>jstl</groupId>
+<artifactId>jstl</artifactId>
+<version>1.2</version>
+</dependency>
+
+<!-- spring jdbc & jdbc driver & connection pool -->
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-jdbc</artifactId>
+<version>${spring.version}</version>
+</dependency>
+
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-tx</artifactId>
+<version>${spring.version}</version>
+</dependency>
+
+<dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<version>5.1.45</version>
+</dependency>
+
+<!-- basic data source -->
+<dependency>
+<groupId>org.apache.commons</groupId>
+<artifactId>commons-dbcp2</artifactId>
+<version>2.1.1</version>
+</dependency>
+
+<!-- Jackson Module -->
+<dependency>
+<groupId>com.fasterxml.jackson.core</groupId>
+<artifactId>jackson-databind</artifactId>
+<version>${jackson2.version}</version>
+</dependency>
+
+<dependency>
+<groupId>com.fasterxml.jackson.datatype</groupId>
+<artifactId>jackson-datatype-jdk8</artifactId>
+<version>${jackson2.version}</version>
+</dependency>
+</dependencies>
+<build>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.6.1</version>
+<configuration>
+<source>1.8</source>
+<target>1.8</target>
+</configuration>
+</plugin>
+</plugins>
+</build>
+</project>
+```
+
+2. MavenUpdate
+3. .Settings 모듈 버전 바꿔주기 (2.3 => 3.1)
+4. 이클립스 재시작 & Property 탭 Project Facuets 의 Dynamic WebModule 3.1 버전확인
+
+
+# 실습 Start
+
+1. 설정파일 패키지 만들기 (kr.or.connect.guestbook.config)
+    - WebMvcContextConfiguration.java 클래스 생성
+
+```java
+package kr.or.connect.guestbook.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = { "kr.or.connect.guestbook.controller" })
+public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+    }
+ 
+    // default servlet handler를 사용하게 합니다.
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+   
+    @Override
+    public void addViewControllers(final ViewControllerRegistry registry) {
+    		System.out.println("addViewControllers가 호출됩니다. ");
+        registry.addViewController("/").setViewName("index");
+    }
+    
+    @Bean
+    public InternalResourceViewResolver getInternalResourceViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+}
+```
