@@ -622,7 +622,7 @@ public class GuestbookDao {
     - 어떤 메소드를 하나씩 구현하고나서 그 메소드가 `잘 동작하는지 테스트하는것이 매우 중요!!`    
     - 매번 main 메소드 적어서 작동 확인하기가 번거롭다
     - `J유닛`과 같은 `단위테스트 공부 필요`
-	
+
 ```java
 package kr.or.connect.guestbook.dao;
 
@@ -672,6 +672,7 @@ public class GuestbookDaoTest {
         - 방명록 정보 페이지별로 읽어오기
         - 페이징 처리를 위해 전체 건수 구하기
         - 방명록 저장하기 등등
+		
 ```java
 package kr.or.connect.guestbook.service;
 import java.util.List;
