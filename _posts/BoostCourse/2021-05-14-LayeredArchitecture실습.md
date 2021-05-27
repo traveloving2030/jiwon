@@ -672,7 +672,7 @@ public class GuestbookDaoTest {
         - 방명록 정보 페이지별로 읽어오기
         - 페이징 처리를 위해 전체 건수 구하기
         - 방명록 저장하기 등등
-		
+
 ```java
 package kr.or.connect.guestbook.service;
 import java.util.List;
@@ -825,3 +825,116 @@ public class GuestbookServiceTest {
 		return guestbook;
 	}
 ```
+
+# Controller 설계
+- kr.or.connect.guestbook.controller 패키지 생성 후 GuestbookController.java 파일 생성
+	 - @Autowired 붙여 실제 사용할 서비스 써주면됨
+
+```java
+package kr.or.connect.guestbook.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import kr.or.connect.guestbook.dto.Guestbook;
+import kr.or.connect.guestbook.service.GuestbookService;
+
+@Controller
+public class GuestbookController {
+	@Autowired
+	GuestbookService guestbookService;
+	
+	@GetMapping(path="/list")
+	public String list(@RequestParam(name="start", required=false, defaultValue="0") int start,
+					   ModelMap model) {
+		
+		// start로 시작하는 방명록 목록 구하기
+		List<Guestbook> list = guestbookService.getGuestbooks(start);
+		
+		// 전체 페이지수 구하기
+		int count = guestbookService.getCount();
+		int pageCount = count / GuestbookService.LIMIT;
+		if(count % GuestbookService.LIMIT > 0)
+			pageCount++;
+		
+		// 페이지 수만큼 start의 값을 리스트로 저장
+		// 예를 들면 페이지수가 3이면
+		// 0, 5, 10 이렇게 저장된다.
+		// list?start=0 , list?start=5, list?start=10 으로 링크가 걸린다.
+		List<Integer> pageStartList = new ArrayList<>();
+		for(int i = 0; i < pageCount; i++) {
+			pageStartList.add(i * GuestbookService.LIMIT);
+		}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("count", count);
+		model.addAttribute("pageStartList", pageStartList);
+		
+		return "list";
+	}
+	
+	@PostMapping(path="/write")
+	public String write(@ModelAttribute Guestbook guestbook,
+						HttpServletRequest request) {
+		String clientIp = request.getRemoteAddr();
+		System.out.println("clientIp : " + clientIp);
+		guestbookService.addGuestbook(guestbook, clientIp);
+		return "redirect:list";
+	}
+}
+```
+
+- list 메소드의 결과로 "list" 를 return 하므로 WEB-INF/views 폴더 내 list.jsp 생성
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>방명록 목록</title>
+</head>
+<body>
+
+	<h1>방명록</h1>
+	<br> 방명록 전체 수 : ${count }
+	<br>
+	<br>
+
+	<c:forEach items="${list}" var="guestbook">
+
+${guestbook.id }<br>
+${guestbook.name }<br>
+${guestbook.content }<br>
+${guestbook.regdate }<br>
+
+	</c:forEach>
+	<br>
+
+	<c:forEach items="${pageStartList}" var="pageIndex" varStatus="status">
+		<a href="list?start=${pageIndex}">${status.index +1 }</a>&nbsp; &nbsp;
+</c:forEach>
+
+	<br>
+	<br>
+	<form method="post" action="write">
+		name : <input type="text" name="name"><br>
+		<textarea name="content" cols="60" rows="6"></textarea>
+		<br> <input type="submit" value="등록">
+	</form>
+</body>
+</html>
+```
+
