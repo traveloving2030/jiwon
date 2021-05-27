@@ -206,7 +206,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 
 - WebMvcContextConfiguration.java 클래스 생성
     - `이 클래스에 명시되는 설정들은 Dispatcher Servlet이 읽어들임`
-	
+
 ```java
 package kr.or.connect.guestbook.config;
 
@@ -622,6 +622,7 @@ public class GuestbookDao {
     - 어떤 메소드를 하나씩 구현하고나서 그 메소드가 `잘 동작하는지 테스트하는것이 매우 중요!!`    
     - 매번 main 메소드 적어서 작동 확인하기가 번거롭다
     - `J유닛`과 같은 `단위테스트 공부 필요`
+	
 ```java
 package kr.or.connect.guestbook.dao;
 
