@@ -16,7 +16,7 @@ comments: true
     - 별도의 메소드로 분리
 
 # 컨트롤러와 서비스
-- 비지니스 메소드를 별도의 `Service객체`에서 구현하도록 하고 컨트롤러는 Service객체를 사용하도록 구현
+- 비지니스 메소드를 별도의 `Service객체`에서 구현하도록 하고 `컨트롤러는 Service객체를 사용`하도록 구현
 - 그림의 상품 서비스는 Controller1, Controller3 모두 사용
     - 이때는 Controller1, Controller3에 각각 구현하는 것이 아닌 `상품과 관련된 비지니스만 처리하는 서비스 객체`를 따로 만듦
     - 이러면 Controller1, Controller3 모두 사용할 수 있음
