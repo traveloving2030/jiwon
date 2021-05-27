@@ -215,7 +215,7 @@ public class ActorDTO {
 - Spring Container인 ApplicationContext는 ApplicationConfig Class 설정파일을 읽어들임
 - ApplicationConfig에는 @ComponentScan 어노테이션이 DAO Class를 찾도록 설정할것
 - 찾은 모든 DAO 클래스는 Spring Container(ApplicationContext)가 관리하게 됨
-- ApplicationContext는 DBConfigClass를 Import함
+- ApplicationConfig 클래스는 DBConfigClass를 Import함
 - DBConfig Class에서는 dataSource와 Tx Manager 객체를 생성
 - DAO는 Field로 NamedParameterJDBCTemplate 과 SimpleJDBCInsert를 가지게됨. 두 개의 객체는 Data Source를 필요로 함
     - 두개의 객체 모두 SQL의 실행을 편리하게 하도록 Spring JDBC에서 제공하는 객체
