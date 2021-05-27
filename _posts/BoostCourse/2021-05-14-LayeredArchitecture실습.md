@@ -205,7 +205,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     - web.xml
 
 - WebMvcContextConfiguration.java 클래스 생성
-        - `이 클래스에 명시되는 설정들은 Dispatcher Servlet이 읽어들임`
+    - `이 클래스에 명시되는 설정들은 Dispatcher Servlet이 읽어들임`
+	
 ```java
 package kr.or.connect.guestbook.config;
 
@@ -670,8 +671,155 @@ public class GuestbookDaoTest {
         - 방명록 정보 페이지별로 읽어오기
         - 페이징 처리를 위해 전체 건수 구하기
         - 방명록 저장하기 등등
+```java
+package kr.or.connect.guestbook.service;
+import java.util.List;
 
+import kr.or.connect.guestbook.dto.Guestbook;
 
+public interface GuestbookService {
+	public static final Integer LIMIT = 5;
+	public List<Guestbook> getGuestbooks(Integer start);
+	public int deleteGuestbook(Long id, String ip);
+	public Guestbook addGuestbook(Guestbook guestbook, String ip);
+	public int getCount();
+}
 
+```
 
+2. kr.or.connect.guestbook.service.impl 패키지 내 위 Interface를 구현하는 GuestbookServiceImpl.java `서비스`클래스 작성
+	- Bean 자동으로 등록해주는 @Autowired 사용
+		- 선언만 해주면 알아서 Bean 생성해서 주입시켜줌
+	- Query만 하는 Transaction은 @Transactional 붙여주면됨
+	- Invoke하는 Transaction은 @Transactional(readOnly=false)
 
+```java
+package kr.or.connect.guestbook.service.impl;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import kr.or.connect.guestbook.dao.GuestbookDao;
+import kr.or.connect.guestbook.dao.LogDao;
+import kr.or.connect.guestbook.dto.Guestbook;
+import kr.or.connect.guestbook.dto.Log;
+import kr.or.connect.guestbook.service.GuestbookService;
+
+@Service
+public class GuestbookServiceImpl implements GuestbookService{
+	@Autowired
+	GuestbookDao guestbookDao;
+	
+	@Autowired
+	LogDao logDao;
+
+	@Override
+	@Transactional
+	public List<Guestbook> getGuestbooks(Integer start) {
+		List<Guestbook> list = guestbookDao.selectAll(start, GuestbookService.LIMIT);
+		return list;
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public int deleteGuestbook(Long id, String ip) {
+		int deleteCount = guestbookDao.deleteById(id);
+		Log log = new Log();
+		log.setIp(ip);
+		log.setMethod("delete");
+		log.setRegdate(new Date());
+		logDao.insert(log);
+		return deleteCount;
+	}
+
+	@Override
+	@Transactional(readOnly=false)
+	public Guestbook addGuestbook(Guestbook guestbook, String ip) {
+		guestbook.setRegdate(new Date());
+		Long id = guestbookDao.insert(guestbook);
+		guestbook.setId(id);
+		
+//		if(1 == 1)
+//			throw new RuntimeException("test exception");
+//			
+		Log log = new Log();
+		log.setIp(ip);
+		log.setMethod("insert");
+		log.setRegdate(new Date());
+		logDao.insert(log);
+		
+		
+		return guestbook;
+	}
+
+	@Override
+	public int getCount() {
+		return guestbookDao.selectCount();
+	}
+	
+	
+}
+```
+
+3. kr.or.connect.guestbook.service.impl 패키지 내 GuestbookServiceTest.java 파일 생성 후 테스트
+
+```java
+package kr.or.connect.guestbook.service.impl;
+
+import java.util.Date;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import kr.or.connect.guestbook.config.ApplicationConfig;
+import kr.or.connect.guestbook.dto.Guestbook;
+import kr.or.connect.guestbook.service.GuestbookService;
+
+public class GuestbookServiceTest {
+
+	public static void main(String[] args) {
+		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class); 
+		GuestbookService guestbookService = ac.getBean(GuestbookService.class);
+		
+		Guestbook guestbook = new Guestbook();
+		guestbook.setName("jiwon");
+		guestbook.setContent("반갑습니다.");
+		guestbook.setRegdate(new Date());
+		Guestbook result = guestbookService.addGuestbook(guestbook, "127.0.0.1");
+		System.out.println(result);
+		
+	}
+
+}
+```
+
+## Transaction Test
+- 바로 위의 GuestbookServiceImpl.java에서 주석친 부분을 살려서 일부러 Exception을 실행시켜보자
+	 - addGuestbook 내의 모든 로직들이 다 실행되어야 `하나의 트랜잭션`
+	 - 그런데, if문을 만나 Exception이 발생되면 아래 `if 아래부분은 실행안되면서 트랜잭션 RollBack` => MySQL 확인해보면 반영안된것을 확인
+	 - 또한가지, @Transactional(readOnly=false)을 만약 지우면, 아래 로직은 트랜잭션으로 보지 않고 실행되어 MySQL에 반영이 됨
+	 - 따라서 @Transactional(readOnly=false) 어노테이션은 반드시 필요!!
+	
+```java
+	@Transactional(readOnly=false)
+	public Guestbook addGuestbook(Guestbook guestbook, String ip) {
+		guestbook.setRegdate(new Date());
+		Long id = guestbookDao.insert(guestbook);
+		guestbook.setId(id);
+		
+		if(1 == 1)
+			throw new RuntimeException("test exception");
+			
+		Log log = new Log();
+		log.setIp(ip);
+		log.setMethod("insert");
+		log.setRegdate(new Date());
+		logDao.insert(log);
+		
+		return guestbook;
+	}
+```
