@@ -558,7 +558,8 @@ public class GuestbookDaoSqls {
 ```
 
 - GuestbookDao 클래스 생성
-
+	- rowMapper : Select 한건 한건의 결과를 DTO에 저장(BeanPropertyRowMapper을 이용하여 컬럼의 값을 자동으로 DTO에 담아주게 됨)
+	
 ```java
 package kr.or.connect.guestbook.dao;
 
