@@ -140,3 +140,47 @@ console.log(resultHtml);
 
 </html>
 ```
+
+
+- 여러개의 데이터에 대해 HTML Template 보관 방법
+
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <h2>Template Test</h2>
+    <div class="content"></div>
+</body>
+
+<script id="template-List-item" type="text/template">
+    <li>
+        <h4>{title}</h4>
+        <p>{content}</p>
+        <div>{price}</div>
+    </li>
+</script>
+
+<script>
+    //mock data
+    var data = [
+        {title : "hello",content : "lorem dkfief",price : 2000},
+        {title : "hello2",content : "sdfdsf",price : 3000}
+    ];
+    var resultHTML = [];
+    var html=document.querySelector("#template-List-item").innerHTML;
+    
+    data.forEach(function(c){
+        var result=html.replace("{title}", c.title)
+        .replace("{content}", c.content)
+        .replace("{price}", c.price)
+        resultHTML.push(result);
+    })
+    document.querySelector(".content").innerHTML = resultHTML;
+</script>
+
+</html>
+```
