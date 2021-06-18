@@ -70,11 +70,11 @@ bindTemplate(data);
     </section>
     <script type="myTemplate" id="listTemplate">
         <li>
-            <div>게시자 : {{name}}</div>
-            <div class="content">{{content}}</div>
-            <div>좋아요 갯수 <span>{{like}}</span></div>
+            <div>게시자 : {name}</div>
+            <div class="content">{content}</div>
+            <div>좋아요 갯수 <span>{like}</span></div>
             <div class="comment">
-                <div>{{comment}}</div>
+                <div>{comment}</div>
             </div>
         </li>
     </script>
@@ -124,14 +124,14 @@ var data = {
  <html>
  <script type="myTemplate" id="listTemplate">
     <li>
-        <div>게시자 : {{name}}</div>
-        <div class="content">{{content}}</div>
-        <div>좋아요 갯수 <span> {{like}} </span></div>
+        <div>게시자 : {name}</div>
+        <div class="content">{content}</div>
+        <div>좋아요 갯수 <span> {like} </span></div>
         <div class="comment">
         <h3>댓글목록</h3>
-        {{#each comment}}
-            <div>{{@index}}번째 댓글 : {{this}}</div>
-        {{/each}}
+        {#each comment}
+            <div>{@index}번째 댓글 : {this}</div>
+        {/each}
         </div>
     </li>
 </script>	
@@ -159,14 +159,14 @@ var data = {
     </section>
     <script type="myTemplate" id="listTemplate">
         <li>
-            <div>게시자 : {{name}}</div>
-            <div class="content">{{content}}</div>
-            <div>좋아요 갯수 <span> {{like}} </span></div>
+            <div>게시자 : {name}</div>
+            <div class="content">{content}</div>
+            <div>좋아요 갯수 <span> {like} </span></div>
             <div class="comment">
             <h3>댓글목록</h3>
-            {{#each comment}}
-                <div>{{@index}}번째 댓글 : {{this}}</div>
-            {{/each}}
+            {#each comment}
+                <div>{@index}번째 댓글 : {this}</div>
+            {/each}
             </div>
         </li>
     </script>	
