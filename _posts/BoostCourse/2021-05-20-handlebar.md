@@ -10,7 +10,7 @@ comments: true
 ---
 
 
-<h1 style="color:red;">{블라블라} 를 {{블라블라}} 로 바꿔줘야 인식함!!</h1>
+<h1 style="color:red;">{블라블라} 를 " {{블라블라}} " 로 바꿔줘야 인식함!!</h1>
 
 # handlebar를 활용한 템플릿 작업-1
 
