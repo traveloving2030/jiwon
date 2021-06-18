@@ -14,16 +14,19 @@ comments: true
 - html에 다음과 같이 template코드를 만듦
 
 ```html
-<script type="myTemplate" id="listTemplate">
-	<li>
-     <div>게시자 : {{name}}</div>
-     <div class="content">{{content}}</div>
-     <div>좋아요 갯수 <span> {{like}} </span></div>
-     <div class="comment">
-       <div>{{comment}}</div>
-     </div>
-  </li>
-</script>	
+<html>
+    <script type="myTemplate" id="listTemplate">
+        <li>
+        <div>게시자 : {{name}}</div>
+        <div class="content">{{content}}</div>
+        <div>좋아요 갯수 <span> {{like}} </span></div>
+        <div class="comment">
+        <div>{{comment}}</div>
+        </div>
+    </li>
+    </script>	
+</html>
+
 ```
 
 - javascript에서는 replace로 치환하는 방법 말고, 라이브러리를 사용해서 결과를 얻을 수 있음
@@ -118,7 +121,8 @@ var data = {
     - #each 구문을 쓴다
 
  ```html
-<script type="myTemplate" id="listTemplate">
+ <html>
+ <script type="myTemplate" id="listTemplate">
     <li>
         <div>게시자 : {{name}}</div>
         <div class="content">{{content}}</div>
@@ -131,6 +135,8 @@ var data = {
         </div>
     </li>
 </script>	
+ </html>
+
  ```
 
 - 전체 완성된 코드
