@@ -17,11 +17,11 @@ comments: true
 <html>
     <script type="myTemplate" id="listTemplate">
         <li>
-        <div>게시자 : {{name}}</div>
-        <div class="content">{{content}}</div>
-        <div>좋아요 갯수 <span> {{like}} </span></div>
+        <div>게시자 : {name}</div>
+        <div class="content">{content}</div>
+        <div>좋아요 갯수 <span> {like} </span></div>
         <div class="comment">
-        <div>{{comment}}</div>
+        <div>{comment}</div>
         </div>
     </li>
     </script>	
