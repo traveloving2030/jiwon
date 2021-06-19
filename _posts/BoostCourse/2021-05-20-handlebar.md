@@ -10,7 +10,6 @@ comments: true
 ---
 
 
-<h1 style="color:red;">{블라블라} 를 " {{블라블라}} " 로 바꿔줘야 인식함!!</h1>
 
 # handlebar를 활용한 템플릿 작업-1
 
@@ -20,11 +19,11 @@ comments: true
 <html>
     <script type="myTemplate" id="listTemplate">
         <li>
-        <div>게시자 : {name}</div>
-        <div class="content">{content}</div>
-        <div>좋아요 갯수 <span> {like} </span></div>
+        <div>게시자 : {{name|mark}}</div>
+        <div class="content">{{content|mark}}</div>
+        <div>좋아요 갯수 <span> {{like|mark}} </span></div>
         <div class="comment">
-        <div>{comment}</div>
+        <div>{{comment|mark}}</div>
         </div>
     </li>
     </script>	
@@ -73,11 +72,11 @@ bindTemplate(data);
     </section>
     <script type="myTemplate" id="listTemplate">
         <li>
-            <div>게시자 : {name}</div>
-            <div class="content">{content}</div>
-            <div>좋아요 갯수 <span>{like}</span></div>
+            <div>게시자 : {{name|mark}}</div>
+            <div class="content">{{content|mark}}</div>
+            <div>좋아요 갯수 <span>{{like|mark}}</span></div>
             <div class="comment">
-                <div>{comment}</div>
+                <div>{{comment|mark}}</div>
             </div>
         </li>
     </script>
@@ -127,14 +126,14 @@ var data = {
  <html>
  <script type="myTemplate" id="listTemplate">
     <li>
-        <div>게시자 : {name}</div>
-        <div class="content">{content}</div>
-        <div>좋아요 갯수 <span> {like} </span></div>
+        <div>게시자 : {{name|mark}}</div>
+        <div class="content">{{content|mark}}</div>
+        <div>좋아요 갯수 <span> {{like|mark}} </span></div>
         <div class="comment">
         <h3>댓글목록</h3>
-        {#each comment}
-            <div>{@index}번째 댓글 : {this}</div>
-        {/each}
+        {{#each comment|mark}}
+            <div>{{@index|mark}}번째 댓글 : {{this|mark}}</div>
+        {{/each|mark}}
         </div>
     </li>
 </script>	
@@ -162,14 +161,14 @@ var data = {
     </section>
     <script type="myTemplate" id="listTemplate">
         <li>
-            <div>게시자 : {name}</div>
-            <div class="content">{content}</div>
-            <div>좋아요 갯수 <span> {like} </span></div>
+            <div>게시자 : {{name|mark}}</div>
+            <div class="content">{{content|mark}}</div>
+            <div>좋아요 갯수 <span> {{like|mark}} </span></div>
             <div class="comment">
             <h3>댓글목록</h3>
-            {#each comment}
-                <div>{@index}번째 댓글 : {this}</div>
-            {/each}
+            {{#each comment|mark}}
+                <div>{{@index|mark}}번째 댓글 : {{this|mark}}</div>
+            {{/each|mark}}
             </div>
         </li>
     </script>	
