@@ -39,6 +39,17 @@ var template = document.querySelector("#listTemplate").innerText;
 var bindTemplate = Handlebars.compile(template);  //bindTemplate은 메서드입니다.
 ```
 
+- 이때, handlerBar 라이브러리를 사용하기 위해 html 내 다음 스크립트 코드 삽입해줘야함
+    - handlerbar cdn 홈페이지에서 받아오면 됨
+    
+```html
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+        integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+```
+
+
 - 데이터 추가
 
 ```js
