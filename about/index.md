@@ -38,7 +38,7 @@ comments: true
 * 인공지능 모델링 및 개발(LSTM, Time-GAN))
 
 ## Programming Skill
-* C, C++, Python, Java, Solidity, GO, JavaScript(NodeJS, ReactJS, AngularJS)
+* C, C++, Python, Java, Solidity, GO, HTML, CSS, JavaScript(NodeJS, ReactJS, AngularJS), JSP, SQL
 
 ## Research
 * 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장 연구 (Time-GAN Data Integrity Assurance Using Hyperledger Fabric Blockchain)
