@@ -28,7 +28,7 @@ comments: true
     - (2019~2021)정보산업연합회 퍼블릭 블록체인 강사
 
 ## Advanced Skill
-* 웹 백앤드 개발(MySQL, Java, JSP, Spring Framework)
+* 웹 백앤드 개발(MySQL, Java, JSP, Spring MVC Framework)
 * 웹 프론트앤드 개발(HTML, CSS, JavaScript)
 * Private BlockChain (Hyperledger Fabric) 개발
     - Hyperledger Fabric BlockChain Network 개발
