@@ -28,7 +28,7 @@ comments: true
     - (2019~2021)정보산업연합회 퍼블릭 블록체인 강사
 
 ## Advanced Skill
-* 웹 백앤드 개발(MySQL, Java, JSP, Spring Framework)
+* 웹 백앤드 개발(MySQL, Java, JSP, Spring MVC Framework)
 * 웹 프론트앤드 개발(HTML, CSS, JavaScript)
 * Private BlockChain (Hyperledger Fabric) 개발
     - Hyperledger Fabric BlockChain Network 개발
@@ -38,17 +38,18 @@ comments: true
 * 인공지능 모델링 및 개발(LSTM, Time-GAN))
 
 ## Programming Skill
-* C, C++, Python, Java, Solidity, GO, JavaScript(NodeJS, ReactJS, AngularJS)
+* C, C++, Python, Java, Solidity, GO, HTML, CSS, JavaScript(NodeJS, ReactJS, AngularJS), JSP, SQL
 
 ## Research
 * 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장 연구 (Time-GAN Data Integrity Assurance Using Hyperledger Fabric Blockchain)
 
 ## Project
-- (2018) 하이퍼레저 패브릭 블록체인 기반 건물안전등급 등록 및 조회 서비스
-- (2019) 하이퍼레저 패브릭 블록체인 기반 출입관리시스템
-- (2020) 이더리움과 하이퍼레저 패브릭 블록체인 기반 과외매칭 서비스
-- (2020) 하이퍼레저 패브릭 블록체인 기반 마이데이터 플랫폼 서비스
-- (2020~2021) 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장
+- Java Spring MVC와 Maven Project를 활용한 네이버 예약서비스 (네이버 부스트코스 풀스택과정 프로젝트)
+- 하이퍼레저 패브릭 블록체인 기반 건물안전등급 등록 및 조회 서비스
+- 하이퍼레저 패브릭 블록체인 기반 출입관리시스템
+- 이더리움과 하이퍼레저 패브릭 블록체인 기반 과외매칭 서비스
+- 하이퍼레저 패브릭 블록체인 기반 마이데이터 플랫폼 서비스
+- 하이퍼레저 패브릭 블록체인을 활용한 Time-GAN 데이터 무결성 보장
 
 ## Certification
 * 정보처리기사
