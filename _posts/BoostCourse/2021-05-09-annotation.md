@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ApplicatoinConfig {
+public class ApplicationConfig {
 	@Bean
 	public Car car(Engine e) {
 		Car c = new Car();
@@ -59,7 +59,7 @@ public class ApplicationContextExam04 {
 
 	public static void main(String[] args) {
 		
-		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicatoinConfig.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		// Car car = (Car) ac.getBean("car");
 		Car car = (Car) ac.getBean(Car.class);
 		car.run();
