@@ -212,7 +212,7 @@ public class ActorDTO {
 
 <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/부스트코스/40.png" height="280" width="300" />
 
-- Spring Container인 ApplicationContext는 ApplicationConfig Class 설정파일을 읽어들임
+- Spring Container인 ApplicationContext는 `Beans를 관리하는 공장`으로서, ApplicationConfig Class 설정파일을 읽어들임
   - 이때, Annotation Config Application Context는 java Config Class를 읽어들이고 `IoC와 DI를 적용하여 Beans 객체 생성`
 - ApplicationConfig에는 @ComponentScan 어노테이션이 DAO Class를 찾도록 설정할것
 - 찾은 모든 DAO 클래스는 Spring Container(ApplicationContext)가 관리하게 됨
