@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "쿠키와 세션"
-date: 2021-05-22
+date: 2021-05-27
 excerpt: "web"
 tag:
 - WebProgramming
