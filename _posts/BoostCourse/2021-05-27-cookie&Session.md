@@ -108,3 +108,77 @@ response.addCookie(cookie);
 - 유효기간을 10분으로 지정하려면
 - cookie.setMaxAge(10 * 60); //초 단위 : 10분
 - 1주일로 지정하려면 (7*24*60*60)로 설정
+
+
+# Session을 이용한 상태 유지
+
+<img src = "https://traveloving2030.github.io/jiwon/assets/img/post/부스트코스/56.png" height="280" width="300" />
+
+- 웹 클라이언트가 서버측에 요청을 보내게 되면 서버는 클라이언트를 식별하는 session id를 생성
+- 서버는 session id를 이용해서 key와 value를 이용한 저장소인 HttpSession을 생성
+- 서버는 session id를 저장하고 있는 쿠키를 생성하여 클라이언트에 전송
+- 클라이언트는 서버측에 요청을 보낼때 session id를 가지고 있는 쿠키를 전송
+- 서버는 쿠키에 있는 session id를 이용해서 그 전 요청에서 생성한 HttpSession을 찾고 사용
+
+
+## 세션 유지
+
+- 세션은 클라이언트가 서버에 접속하는 순간 생성
+- 특별히 지정하지 않으면 세션의 유지 시간은 기본 값으로 `30분` 설정
+    - 세션의 유지 시간이란 서버에 접속한 후 서버에 요청을 하지 않는 최대 시간
+- 30분 이상 서버에 전혀 반응을 보이지 않으면 세션이 자동으로 끊어짐
+- 이 세션 유지 시간은 web.xml파일에서 설정 가능
+
+```xml
+<session-config>
+  <session-timeout>30</session-timeout>
+</session-config>
+```
+
+
+## 세션 생성 및 얻기
+
+- new HttpSession 하지 않는다. 서버가 알아서 만들어준다
+    - request.getSession()을 수행하게 되면 클라이언트로부터 받아온 응답에서 SessionId로 되어있는 쿠키가 있는지 없는지 확인
+    - 만약 세션이 있다면 세션을 반환하고 `없다면 새롭게 세션을 생성하여 반환`
+        - 이때, 새롭게 생성된 세션인지는 HttpSession이 가지고 잇는 isNew() 메소드를 통해 알 수 있음
+- 아래 두개의 코드는 같은 의미를 지니는 코드
+
+```java
+HttpSession session = request.getSession();
+HttpSession session = request.getSession(true);
+```
+
+- 아래의 코드에서 request의 getSession()메소드에 파라미터로 false를 전달하면, 이미 생성된 세션이 있다면 반환하고 `없으면 null을 반환`
+
+```java
+HttpSession session = request.getSession(false);
+```
+
+
+## 세션에 값 저장
+
+- name과 value의 쌍으로 객체 `Object를 저장`하는 메소드
+    - 따라서, getAttribute 할때 Object를 알맞은 형태로 형변환을 꼭 해주어야함
+
+```java
+setAttribute(String name, Object value)
+String value = (String) session.getAttribute("id");
+```
+
+
+## 세션 값 삭제
+
+- removeAttribute(String name) 메소드
+    - name값에 해당하는 세션 정보 삭제
+
+- invalidate() 메소드
+    - 모든 세션 정보를 삭제
+
+
+
+## javax.servlet.http.HttpSession
+
+<img src = "https://traveloving2030.github.io/jiwon/assets/img/post/부스트코스/57.png" height="280" width="300" />
+
+<img src = "https://traveloving2030.github.io/jiwon/assets/img/post/부스트코스/58.png" height="280" width="300" />
