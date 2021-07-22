@@ -215,6 +215,8 @@ name : <input type="text" name="name"><br>
 </html>
 ```
 
+<img src = "https://traveloving2030.github.io/jiwon/assets/img/post/부스트코스/59.PNG" height="280" width="300" />
+
 
 ### GuestbookController.java
 
