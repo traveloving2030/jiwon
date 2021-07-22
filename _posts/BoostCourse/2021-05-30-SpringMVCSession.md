@@ -11,6 +11,7 @@ comments: true
 
 # Spring MVC에서 Session사용하기
 
+
 ## @SessionAttributes & @ModelAttribute
 
 - @SessionAttributes 파라미터로 지정된 이름과 같은 이름이 @ModelAttribute 파라미터에 지정되어 있을 경우 메소드가 반환되는 값은 세션에 저장
