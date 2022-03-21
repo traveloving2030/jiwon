@@ -7,7 +7,7 @@ comments: true
 ---
 
 <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/profile.jpg" width = "100px"  height="100px" />
-<center><a href="https://github.com/traveloving2030"><b>Jeong JiWon</b></a> is agent for the DanalFintech Corp. Blockchain Development Team</center>
+<center><a href="https://github.com/traveloving2030"><b>Jeong JiWon</b></a> is Engineer for the DanalFintech Corp. Blockchain Development Team</center>
 
 
 ## Contact
