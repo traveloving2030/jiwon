@@ -22,6 +22,11 @@ comments: true
     - DB 데이터 관리
     - 페이코인 트랜잭션 SCAN 웹 프론트, 백앤드 개발(풀스택)
     - 쿠버네티스를 활용한 도커 컨테이너 관리 및 ISMS 대응
+    - 2022 Main 사업
+        - WPCI
+        - CeFi
+        - DeFi
+        - NFT
 
 ## Education
 * 한국항공대학교 전자공학과 학사 졸업(2020.02)
