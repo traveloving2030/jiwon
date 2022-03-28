@@ -12,6 +12,7 @@ comments: true
 
 ## Contact
 * Email : backup@danalfintech.com
+* Phone : 010-2033-4927
 * 궁금하신 사항은 메일 또는 게시글에 댓글을 남겨주세요
 
 ## Corp.
