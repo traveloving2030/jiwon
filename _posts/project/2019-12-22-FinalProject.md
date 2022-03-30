@@ -38,57 +38,22 @@ comments: true
         - 출입이력 중 프라이버시에 민감한 내용은 DID를 활용해 암호화하여 저장하여 개인정보보호 보장
 
 
-- 기존 시스템/서비스 환경 문제점
-    - 전자 출입 관리 시스템에서 발생되는 서버비용과 유지보수 비용 및 컨트롤러 비용이 상당함
-    - 기본 사양으로 출입시스템 한 대 구축시 월 50만원 정도의 비용 발생
-    <img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160284891-6ab05975-4cd1-4ac2-8bef-542ee8e4d05b.png">
-    - 유명 건물 관리 및 출입 통제 시스템에서 개인정보에 관련된 취약점들이 발견되었으며, 이 취약점들을 익스플로잇 할 경우 단말기에 대한 접근 권한을 공격자가 가져가 데이터를 변조하고 고객 개인정보가 유출될 수 
-    <img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160284932-e31b27e1-3b19-4cee-95df-c073aeeb7f11.png">
+- 블록체인 플랫폼
+<img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160285043-f3cc4bbc-aa87-4368-8dd4-c02e50c75baa.png">
 
-- 현행 시스템/서비스 프로세스
-    <img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160285307-8e5dba6c-e603-49c2-bcb9-8585b9cda58b.png">
+- 컨트롤러(라즈베리파이)와 데스크탑 모두 동등한 하나의 피어로서 출입 트랜잭션에 대한 검증 수행
+- 이 때, 서버 없이 모든 피어가 같은 분산원장을 공유하고 있기에 서버 비용 절감
+- 컨트롤러는 핵심적인 기능(트랜잭션 검증)만 수행하여 컨트롤러 비용을 절감
+- 블록 생성에 관여하여 컴퓨팅 연산 비용이 많은 노드는 성능이 좋은 데스크탑을 따로 둠으로서 비용절감 및 효율성 증대
 
-- 현행 시스템과 제안(블록체인 기반) 모델 비교
-
-|구분|현행 수기 출입관리|현행 전자 출입관리 시스템|블록체인 기반 제안 모델|
-|----|---|---|---|
-|안전성|수기 위,변조(악의적인 오기입)가능|출입 담당자의 이중거래 발생 가능성|탈중앙화 데이터 보안 (기밀성, 무결성 보장)|
-|투명,보안성|개인정보 탈취 문제 발생|개인정보 탈취 문제 발생|DID, Private State DB로 개인정보 탈취 문제 해결|
-|경제성 및 효율성|수기 관리인 필요(인력낭비), 병목현상 (시간, 효율성 낭비)|서버, 컨트롤러 비용 발생|체인코드를 통한 출입 One-stop 방식 처리|
-
-
-- 솔루션
-    - 블록체인 플랫폼
-    <img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160285043-f3cc4bbc-aa87-4368-8dd4-c02e50c75baa.png">
-    
-    - 컨트롤러(라즈베리파이)와 데스크탑 모두 동등한 하나의 피어로서 출입 트랜잭션에 대한 검증 수행
-    - 이 때, 서버 없이 모든 피어가 같은 분산원장을 공유하고 있기에 서버 비용 절감
-    - 컨트롤러는 핵심적인 기능(트랜잭션 검증)만 수행하여 컨트롤러 비용을 절감
-    - 블록 생성에 관여하여 컴퓨팅 연산 비용이 많은 노드는 성능이 좋은 데스크탑을 따로 둠으로서 비용절감 및 효율성 증대
-    
-    <img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160285107-d3924d10-babf-4cc2-aa06-39ffa694eb29.png">
-    - 출입관리가 필요한 기관들을 하나의 채널로 묶어서 One-Stop 방식으로 트랜잭션을 병렬처리함으로서 경제적인 효과 증대
+<img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160285107-d3924d10-babf-4cc2-aa06-39ffa694eb29.png">
+- 출입관리가 필요한 기관들을 하나의 채널로 묶어서 One-Stop 방식으로 트랜잭션을 병렬처리함으로서 경제적인 효과 증대
 
 
 - 프로세스
-    <img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160285164-6535d364-3fb8-48af-9cd1-c7287f566467.png">
+<img width="715" alt="contentMap" src="https://user-images.githubusercontent.com/45926066/160285164-6535d364-3fb8-48af-9cd1-c7287f566467.png">
     
-- 기존 출입관리 시스템과 블록체인 모델의 비용 비교
 
-|구분|엔로비 방문객 출입관리시스템|블록체인 기반 제안 모델|
-|------|---|---|
-|사용된 클라우드|KT G-클라우드|클라우드 사용 X (비용 견적은 클라우드를 사용했음을 가정 함)|
-|비용 산출 기준|기본 월 이용 요금 = <span style="color:red">495,000 \(월)</span>|기본 네트워크 구성 MSP A(CA1, Orderer1, Peer1), MSP B(CA1, Peer1) + 컨소시엄 기관 추가(CA1, Peer2) = <span style="color:red">436,320 \(월)</span>|
-
-
-
-
-<img alt="contentMap" src="https://user-images.githubusercontent.com/45926066/159282661-f1210405-3026-4a13-a614-20ee6945c054.png" width="50%" height="50%"/>
-
-- 문을 제어하는 라즈베리파이
-- 관리자가 네트워크를 모니터링 할 수 있는 PC들로 구성
-    - 네트워크는 하이퍼레저 패브릭 블록체인으로 구성
-    - 각 라즈베리파이와 PC들은 하이퍼레저 패브릭을 구성하는 노드(Peer, Orderer)
 
 
 ## Getting started
