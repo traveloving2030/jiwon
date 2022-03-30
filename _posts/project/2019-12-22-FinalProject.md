@@ -83,7 +83,7 @@ comments: true
 
 
 
-<img alt="contentMap" src="https://user-images.githubusercontent.com/45926066/159282661-f1210405-3026-4a13-a614-20ee6945c054.png" width="50%" height="50%">
+<img alt="contentMap" src="https://user-images.githubusercontent.com/45926066/159282661-f1210405-3026-4a13-a614-20ee6945c054.png" width="50%" height="50%"/>
 
 - 문을 제어하는 라즈베리파이
 - 관리자가 네트워크를 모니터링 할 수 있는 PC들로 구성
