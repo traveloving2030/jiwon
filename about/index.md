@@ -90,5 +90,3 @@ comments: true
 * 강원 창조경제혁신센터 공유경제 해커톤 대상(19_02_15)
 * 한국항공대 블록체인, AI 분야 해커톤 대상(19_10_15)
 
-
- <img width="300" alt="대상" src="https://user-images.githubusercontent.com/44187477/56814080-518c6e00-6879-11e9-85a3-32901c1f964f.png"> <br>
