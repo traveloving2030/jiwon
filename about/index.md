@@ -7,11 +7,11 @@ comments: true
 ---
 
 <img src = "https://traveloving2030.github.io/jiwon/assets/img/post/profile.jpg" width = "100px"  height="100px" />
-<center><a href="https://github.com/traveloving2030"><b>Jeong JiWon</b></a> is Engineer for the DanalFintech Corp. Blockchain Development Team</center>
+<center><a href="https://github.com/traveloving2030"><b>Jeong JiWon</b></a> is Engineer for the Bithumb Corp. IT Dept. Cryptocurrency Center Team</center>
 
 
 ## Contact
-* Email : backup@danalfintech.com
+* Email : traveloving2030@gmail.com
 * Phone : 010-2033-4927
 * 궁금하신 사항은 메일 또는 게시글에 댓글을 남겨주세요
 
